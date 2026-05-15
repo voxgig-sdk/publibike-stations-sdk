@@ -1,0 +1,69 @@
+{
+  "existing": {
+    "station": {
+      "STATION00": {
+        "address": "s82",
+        "capacity": "s83",
+        "city": "s84",
+        "id": "STATION00",
+        "is_virtual_station": true,
+        "latitude": 135,
+        "longitude": 136,
+        "name": "s89",
+        "network": {},
+        "sponsor": [],
+        "state": {},
+        "vehicle": [],
+        "zip": "s8e"
+      },
+      "STATION01": {
+        "address": "s104",
+        "capacity": "s105",
+        "city": "s106",
+        "id": "STATION01",
+        "is_virtual_station": true,
+        "latitude": 265,
+        "longitude": 266,
+        "name": "s10b",
+        "network": {},
+        "sponsor": [],
+        "state": {},
+        "vehicle": [],
+        "zip": "s110"
+      },
+      "STATION02": {
+        "address": "s186",
+        "capacity": "s187",
+        "city": "s188",
+        "id": "STATION02",
+        "is_virtual_station": true,
+        "latitude": 395,
+        "longitude": 396,
+        "name": "s18d",
+        "network": {},
+        "sponsor": [],
+        "state": {},
+        "vehicle": [],
+        "zip": "s192"
+      }
+    }
+  },
+  "new": {
+    "station": {
+      "station_ref01": {
+        "address": "s208",
+        "capacity": "s209",
+        "city": "s20a",
+        "is_virtual_station": true,
+        "latitude": 525,
+        "longitude": 526,
+        "name": "s20f",
+        "network": {},
+        "sponsor": [],
+        "state": {},
+        "vehicle": [],
+        "zip": "s214"
+      }
+    }
+  }
+}

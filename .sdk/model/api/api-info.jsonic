@@ -1,0 +1,29 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        email: "contact@publibike.ch"
+        name: "PubliBike AG"
+        url: "https://www.publibike.ch"
+      }
+      description: "Provides information about PubliBike stations, their states, positions, and available vehicles. Includes endpoints to get all stations, a specific station with vehicles, and all stations for partners."
+      license: {
+        name: "Contact PubliBike AG for license information"
+      }
+      servers: [
+        {
+          description: "Production server"
+          url: "https://api.publibike.ch/v1"
+        }
+      ]
+      termsOfService: "https://www.publibike.ch/en/terms-of-service"
+      title: "PubliBike Stations API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

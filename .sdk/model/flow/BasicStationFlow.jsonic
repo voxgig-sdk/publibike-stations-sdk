@@ -1,0 +1,44 @@
+# BasicStationFlow
+
+main: kit: flow: BasicStationFlow:
+{
+  entity: "station",
+  kind: "basic",
+  name: "BasicStationFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "station_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "station_ref01",
+        srcdatavar: "station_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "station01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-station_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicStationFlow"
+}

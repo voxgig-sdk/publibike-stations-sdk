@@ -1,0 +1,431 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "PubliBike Stations API",
+    "description": "Provides information about PubliBike stations, their states, positions, and available vehicles. Includes endpoints to get all stations, a specific station with vehicles, and all stations for partners.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "PubliBike AG",
+      "email": "contact@publibike.ch",
+      "url": "https://www.publibike.ch"
+    },
+    "license": {
+      "name": "Contact PubliBike AG for license information"
+    },
+    "termsOfService": "https://www.publibike.ch/en/terms-of-service"
+  },
+  "servers": [
+    {
+      "url": "https://api.publibike.ch/v1",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/public/stations": {
+      "get": {
+        "summary": "Get all stations",
+        "description": "Delivers state and position of all stations. Use case: display the location of the stations on a map and whether or not bikes are available. To fetch more details of a specific station use /public/stations/{id}",
+        "operationId": "getAllStations",
+        "tags": [
+          "Stations"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of stations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StationOverview"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/stations/{id}": {
+      "get": {
+        "summary": "Get a specific station",
+        "description": "Delivers a specific station including its vehicles. Returns detailed information about a specific station and the vehicles currently at this station. If the information of multiple stations is required, consider using /public/partner/stations",
+        "operationId": "getStationById",
+        "tags": [
+          "Stations"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The station id",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Station details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StationDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Station not found"
+          }
+        }
+      }
+    },
+    "/public/partner/stations": {
+      "get": {
+        "summary": "Get all stations for partners",
+        "description": "Delivers all visible PubliBike stations including all the vehicles currently at a station. Use case: Use this endpoint to repeatedly fetch all stations and vehicles. Fetch interval: not more often than every minute. In case of showing a map with clickable POIs consider using the endpoint /public/stations to fetch the station locations and /public/stations/{id} for requesting the details when a user clicks on the station POI.",
+        "operationId": "getAllStationsForPartners",
+        "tags": [
+          "Stations",
+          "Partner"
+        ],
+        "responses": {
+          "200": {
+            "description": "Information of all the stations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StationsForPartner"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "StationOverview": {
+        "type": "object",
+        "description": "Overview of a station to be displayed on map",
+        "required": [
+          "id",
+          "latitude",
+          "longitude",
+          "state"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Technical station id"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Latitude of the station"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Longitude of the station"
+          },
+          "state": {
+            "$ref": "#/components/schemas/State"
+          }
+        }
+      },
+      "StationDetails": {
+        "type": "object",
+        "description": "Station with current available vehicles. The id of the state is an enumeration, e.g. {1: active, 2: inactive, ...}",
+        "required": [
+          "id",
+          "latitude",
+          "longitude",
+          "state",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Technical station id"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Latitude of the station"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Longitude of the station"
+          },
+          "state": {
+            "$ref": "#/components/schemas/State"
+          },
+          "name": {
+            "type": "string",
+            "description": "Public name of the station"
+          },
+          "address": {
+            "type": "string",
+            "description": "Station address without the city"
+          },
+          "zip": {
+            "type": "string",
+            "description": "Zip code of the station"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the station"
+          },
+          "vehicles": {
+            "type": "array",
+            "description": "All vehicles that are currently available at this station",
+            "items": {
+              "$ref": "#/components/schemas/Vehicle"
+            }
+          },
+          "network": {
+            "$ref": "#/components/schemas/Network"
+          },
+          "sponsors": {
+            "type": "array",
+            "description": "An array of sponsors of this station",
+            "items": {
+              "$ref": "#/components/schemas/Sponsor"
+            }
+          }
+        }
+      },
+      "StationForPartner": {
+        "type": "object",
+        "description": "Overview of a single station and it's vehicles",
+        "required": [
+          "id",
+          "latitude",
+          "longitude",
+          "state",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Technical station id"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Latitude of the station"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Longitude of the station"
+          },
+          "state": {
+            "$ref": "#/components/schemas/State"
+          },
+          "name": {
+            "type": "string",
+            "description": "Public name of the station"
+          },
+          "address": {
+            "type": "string",
+            "description": "Station address without the city"
+          },
+          "zip": {
+            "type": "string",
+            "description": "Zip code of the station"
+          },
+          "city": {
+            "type": "string",
+            "description": "City of the station"
+          },
+          "vehicles": {
+            "type": "array",
+            "description": "All vehicles that are currently available at this station",
+            "items": {
+              "$ref": "#/components/schemas/Vehicle"
+            }
+          },
+          "network": {
+            "$ref": "#/components/schemas/Network"
+          },
+          "sponsors": {
+            "type": "array",
+            "description": "An array of sponsors of this station",
+            "items": {
+              "$ref": "#/components/schemas/Sponsor"
+            }
+          },
+          "is_virtual_station": {
+            "type": "boolean",
+            "description": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastructure (docks) but is defined e.g. via geolocation"
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The maximum number of bikes a station is able to accommodate. This is not a hard limit but can be used for displaying purposes."
+          }
+        }
+      },
+      "StationsForPartner": {
+        "type": "object",
+        "description": "Container for stations and their vehicles.",
+        "required": [
+          "stations"
+        ],
+        "properties": {
+          "stations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StationForPartner"
+            }
+          }
+        }
+      },
+      "State": {
+        "type": "object",
+        "description": "Representation of a state.",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Technical state id"
+          },
+          "name": {
+            "type": "string",
+            "description": "Translated human-readable state name"
+          }
+        }
+      },
+      "Vehicle": {
+        "type": "object",
+        "description": "Representation of a vehicle",
+        "required": [
+          "id",
+          "name",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Technical vehicle id"
+          },
+          "name": {
+            "type": "string",
+            "description": "Vehicle number visible to the user"
+          },
+          "ebike_battery_level": {
+            "type": "number",
+            "format": "double",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "E-Bike battery level in percent. The e-bike battery level is between 0 and 100. If the value is missing it is either not an e-bike or the battery level is unknown."
+          },
+          "type": {
+            "$ref": "#/components/schemas/Type"
+          }
+        }
+      },
+      "Type": {
+        "type": "object",
+        "description": "Representation of a type.",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Technical type id"
+          },
+          "name": {
+            "type": "string",
+            "description": "Translated human-readable type name"
+          }
+        }
+      },
+      "Network": {
+        "type": "object",
+        "description": "Representation of a network",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Technical station id"
+          },
+          "name": {
+            "type": "string",
+            "description": "Translated network name"
+          },
+          "background_img": {
+            "type": "string",
+            "description": "Background image for app (language specific)"
+          },
+          "logo_img": {
+            "type": "string",
+            "description": "Logo of the network (language specific)"
+          },
+          "sponsors": {
+            "type": "array",
+            "description": "An array of sponsors for this network",
+            "items": {
+              "$ref": "#/components/schemas/Sponsor"
+            }
+          }
+        }
+      },
+      "Sponsor": {
+        "type": "object",
+        "description": "Represents a sponsor item containing an image and link (translated).",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Technical sponsor id."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the sponsor."
+          },
+          "image": {
+            "type": "string",
+            "description": "Logo of the sponsor."
+          },
+          "url": {
+            "type": "string",
+            "description": "URL to sponsor website."
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Stations",
+      "description": "Operations related to PubliBike stations"
+    },
+    {
+      "name": "Partner",
+      "description": "Operations for partner integrations"
+    }
+  ]
+}
