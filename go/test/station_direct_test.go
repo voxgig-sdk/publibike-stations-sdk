@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/publibike-stations-sdk"
-	"github.com/voxgig-sdk/publibike-stations-sdk/core"
+	sdk "github.com/voxgig-sdk/publibike-stations-sdk/go"
+	"github.com/voxgig-sdk/publibike-stations-sdk/go/core"
 )
 
 func TestStationDirect(t *testing.T) {

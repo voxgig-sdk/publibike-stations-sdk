@@ -1,10 +1,10 @@
 package voxgigpublibikestationssdk
 
 import (
-	"github.com/voxgig-sdk/publibike-stations-sdk/core"
-	"github.com/voxgig-sdk/publibike-stations-sdk/entity"
-	"github.com/voxgig-sdk/publibike-stations-sdk/feature"
-	_ "github.com/voxgig-sdk/publibike-stations-sdk/utility"
+	"github.com/voxgig-sdk/publibike-stations-sdk/go/core"
+	"github.com/voxgig-sdk/publibike-stations-sdk/go/entity"
+	"github.com/voxgig-sdk/publibike-stations-sdk/go/feature"
+	_ "github.com/voxgig-sdk/publibike-stations-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

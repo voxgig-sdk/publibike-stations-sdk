@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/publibike-stations-sdk/core"
+import "github.com/voxgig-sdk/publibike-stations-sdk/go/core"
 
 func init() {
 	core.UtilityRegistrar = registerAll

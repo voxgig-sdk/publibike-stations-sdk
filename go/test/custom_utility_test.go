@@ -3,7 +3,7 @@ package sdktest
 import (
 	"testing"
 
-	sdk "github.com/voxgig-sdk/publibike-stations-sdk"
+	sdk "github.com/voxgig-sdk/publibike-stations-sdk/go"
 )
 
 func TestCustomUtility(t *testing.T) {

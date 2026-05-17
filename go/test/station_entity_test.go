@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/publibike-stations-sdk"
-	"github.com/voxgig-sdk/publibike-stations-sdk/core"
+	sdk "github.com/voxgig-sdk/publibike-stations-sdk/go"
+	"github.com/voxgig-sdk/publibike-stations-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/publibike-stations-sdk/go/utility/struct"
 )
 
 func TestStationEntity(t *testing.T) {

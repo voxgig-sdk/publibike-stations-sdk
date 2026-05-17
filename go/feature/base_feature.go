@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/publibike-stations-sdk/core"
+	"github.com/voxgig-sdk/publibike-stations-sdk/go/core"
 )
 
 type BaseFeature struct {
