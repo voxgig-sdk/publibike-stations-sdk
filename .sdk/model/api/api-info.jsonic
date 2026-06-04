@@ -22,8 +22,28 @@ main: {
       termsOfService: "https://www.publibike.ch/en/terms-of-service"
       title: "PubliBike Stations API"
       version: "1.0.0"
+      tagline: "Look up PubliBike bike-sharing stations across Switzerland with live vehicle and e-bike availability"
+      homepage: "https://www.publibike.ch"
+      docs_url: "https://api.publibike.ch/v1/static/api.html"
+      license_short: "Contact PubliBike AG for license terms; usage subject to PubliBike's general terms (AGB)."
+      license_md: `- No open licence is published; contact PubliBike AG for terms covering redistribution or commercial use.
+- Service contact: support@publibike.ch.
+- General terms of business: https://www.publibike.ch/en/publibike/agb.
+- Documentation recommends polling the partner stations endpoint no more often than once per minute.`
+      about_md: `The [PubliBike](https://www.publibike.ch) Stations API exposes the station network operated by PubliBike AG, the Swiss nationwide bike-sharing system. It is the same data that powers the official PubliBike apps and map.
+
+What you get from the API:
+
+- A list of all public stations with id, name, address, city, postal code, latitude/longitude and capacity.
+- Per-station state (health/status), network and sponsor metadata, and a \`is_virtual_station\` flag in line with the GBFS specification.
+- Vehicles currently parked at each station, including a user-visible vehicle number, type, and \`ebike_battery_level\` (0-100%) when the vehicle is an e-bike.
+- A partner endpoint that returns all visible stations together with their current vehicles in a single response.
+
+Operational notes: the API is served over HTTPS at \`https://api.publibike.ch/v1\` and has CORS enabled. No authentication is documented for the public endpoints. The partner stations endpoint should not be polled more often than every minute.`
+      entity_desc: {
+        station: "A PubliBike bike-sharing station with location, capacity, state and the vehicles currently parked there; exposed via `GET /public/stations`, `GET /public/stations/{id}` and `GET /public/partner/stations`."
+      }
+      auth: false
     }
   }
-}
-
 }

@@ -116,14 +116,12 @@ def station_direct_setup(mockres)
   env = Runner.env_override({
     "PUBLIBIKESTATIONS_TEST_STATION_ENTID" => {},
     "PUBLIBIKESTATIONS_TEST_LIVE" => "FALSE",
-    "PUBLIBIKESTATIONS_APIKEY" => "NONE",
   })
 
   live = env["PUBLIBIKESTATIONS_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["PUBLIBIKESTATIONS_APIKEY"],
     }
     client = PublibikeStationsSDK.new(merged_opts)
     return {
