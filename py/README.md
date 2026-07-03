@@ -10,7 +10,7 @@ The Python SDK for the PublibikeStations API — an entity-oriented client follo
 
 ## Install
 ```bash
-pip install publibike-stations-sdk
+pip install voxgig-sdk-publibike-stations
 ```
 
 Or install from source:

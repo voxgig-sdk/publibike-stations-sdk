@@ -10,13 +10,13 @@ The Ruby SDK for the PublibikeStations API — an entity-oriented client using i
 
 ## Install
 ```bash
-gem install publibike-stations-sdk
+gem install voxgig-sdk-publibike-stations
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "publibike-stations-sdk"
+gem "voxgig-sdk-publibike-stations"
 ```
 
 Then run:

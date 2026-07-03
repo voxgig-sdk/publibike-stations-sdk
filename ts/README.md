@@ -10,7 +10,7 @@ The TypeScript SDK for the PublibikeStations API — a type-safe, entity-oriente
 
 ## Install
 ```bash
-npm install publibike-stations
+npm install @voxgig-sdk/publibike-stations
 ```
 ## Tutorial: your first API call
 

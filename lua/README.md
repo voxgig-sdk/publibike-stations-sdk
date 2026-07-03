@@ -10,7 +10,7 @@ The Lua SDK for the PublibikeStations API — an entity-oriented client using Lu
 
 ## Install
 ```bash
-luarocks install publibike-stations-sdk
+luarocks install voxgig-sdk-publibike-stations
 ```
 
 If the module is not yet published, add the source directory to

@@ -10,7 +10,7 @@ The PHP SDK for the PublibikeStations API — an entity-oriented client using PH
 
 ## Install
 ```bash
-composer require voxgig/publibike-stations-sdk
+composer require voxgig-sdk/publibike-stations
 ```
 
 

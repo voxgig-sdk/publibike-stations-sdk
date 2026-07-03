@@ -8,12 +8,14 @@ source = {
   dir = "publibike-stations-sdk/lua"
 }
 description = {
-  summary = "PublibikeStations SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the PubliBike Stations public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/publibike-stations-sdk",
+  issues_url = "https://github.com/voxgig-sdk/publibike-stations-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "publibike-stations" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {
