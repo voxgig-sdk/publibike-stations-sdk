@@ -96,6 +96,7 @@ function station_basic_setup($extra)
         "PUBLIBIKESTATIONS_TEST_STATION_ENTID" => $idmap,
         "PUBLIBIKESTATIONS_TEST_LIVE" => "FALSE",
         "PUBLIBIKESTATIONS_TEST_EXPLAIN" => "FALSE",
+        "PUBLIBIKESTATIONS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -107,6 +108,7 @@ function station_basic_setup($extra)
     if ($env["PUBLIBIKESTATIONS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
+                "apikey" => $env["PUBLIBIKESTATIONS_APIKEY"],
             ],
             $extra ?? [],
         ]);

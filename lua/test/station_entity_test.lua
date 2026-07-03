@@ -102,6 +102,7 @@ function station_basic_setup(extra)
     ["PUBLIBIKESTATIONS_TEST_STATION_ENTID"] = idmap,
     ["PUBLIBIKESTATIONS_TEST_LIVE"] = "FALSE",
     ["PUBLIBIKESTATIONS_TEST_EXPLAIN"] = "FALSE",
+    ["PUBLIBIKESTATIONS_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -113,6 +114,7 @@ function station_basic_setup(extra)
   if env["PUBLIBIKESTATIONS_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["PUBLIBIKESTATIONS_APIKEY"],
       },
       extra or {},
     })

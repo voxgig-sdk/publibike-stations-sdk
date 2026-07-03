@@ -102,6 +102,7 @@ def _station_basic_setup(extra):
         "PUBLIBIKESTATIONS_TEST_STATION_ENTID": idmap,
         "PUBLIBIKESTATIONS_TEST_LIVE": "FALSE",
         "PUBLIBIKESTATIONS_TEST_EXPLAIN": "FALSE",
+        "PUBLIBIKESTATIONS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -112,6 +113,7 @@ def _station_basic_setup(extra):
     if env.get("PUBLIBIKESTATIONS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("PUBLIBIKESTATIONS_APIKEY"),
             },
             extra or {},
         ])

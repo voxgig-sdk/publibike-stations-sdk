@@ -135,6 +135,7 @@ func stationBasicSetup(extra map[string]any) *entityTestSetup {
 		"PUBLIBIKESTATIONS_TEST_STATION_ENTID": idmap,
 		"PUBLIBIKESTATIONS_TEST_LIVE":      "FALSE",
 		"PUBLIBIKESTATIONS_TEST_EXPLAIN":   "FALSE",
+		"PUBLIBIKESTATIONS_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["PUBLIBIKESTATIONS_TEST_STATION_ENTID"])
@@ -145,6 +146,7 @@ func stationBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["PUBLIBIKESTATIONS_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["PUBLIBIKESTATIONS_APIKEY"],
 			},
 			extra,
 		})

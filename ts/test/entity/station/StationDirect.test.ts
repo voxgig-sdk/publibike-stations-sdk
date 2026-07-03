@@ -136,12 +136,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'PUBLIBIKESTATIONS_TEST_STATION_ENTID': {},
     'PUBLIBIKESTATIONS_TEST_LIVE': 'FALSE',
+    'PUBLIBIKESTATIONS_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.PUBLIBIKESTATIONS_TEST_LIVE
 
   if (live) {
     const client = new PublibikeStationsSDK({
+      apikey: env.PUBLIBIKESTATIONS_APIKEY,
     })
 
     let idmap: any = env['PUBLIBIKESTATIONS_TEST_STATION_ENTID']

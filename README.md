@@ -1,21 +1,8 @@
 # PublibikeStations SDK
 
-Look up PubliBike bike-sharing stations across Switzerland with live vehicle and e-bike availability
+PubliBike Stations API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About PubliBike Stations API
-
-The [PubliBike](https://www.publibike.ch) Stations API exposes the station network operated by PubliBike AG, the Swiss nationwide bike-sharing system. It is the same data that powers the official PubliBike apps and map.
-
-What you get from the API:
-
-- A list of all public stations with id, name, address, city, postal code, latitude/longitude and capacity.
-- Per-station state (health/status), network and sponsor metadata, and a `is_virtual_station` flag in line with the GBFS specification.
-- Vehicles currently parked at each station, including a user-visible vehicle number, type, and `ebike_battery_level` (0-100%) when the vehicle is an e-bike.
-- A partner endpoint that returns all visible stations together with their current vehicles in a single response.
-
-Operational notes: the API is served over HTTPS at `https://api.publibike.ch/v1` and has CORS enabled. No authentication is documented for the public endpoints. The partner stations endpoint should not be polled more often than every minute.
 
 ## Try it
 
@@ -49,29 +36,31 @@ gem install publibike-stations-sdk
 luarocks install publibike-stations-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { PublibikeStationsSDK } from 'publibike-stations'
 
-const client = new PublibikeStationsSDK({})
+const client = new PublibikeStationsSDK({
+  apikey: process.env.PUBLIBIKE-STATIONS_APIKEY,
+})
 
 // List all stations
 const stations = await client.Station().list()
+console.log(stations.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -101,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Station** | A PubliBike bike-sharing station with location, capacity, state and the vehicles currently parked there; exposed via `GET /public/stations`, `GET /public/stations/{id}` and `GET /public/partner/stations`. | `/public/partner/stations` |
+| **Station** |  | `/public/partner/stations` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -111,17 +100,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from publibikestations_sdk import PublibikeStationsSDK
 
-client = PublibikeStationsSDK({})
+client = PublibikeStationsSDK({
+    "apikey": os.environ.get("PUBLIBIKE-STATIONS_APIKEY"),
+})
 
 # List all stations
-stations, err = client.Station(None).list(None, None)
+stations, err = client.Station().list()
+print(stations)
 
 # Load a specific station
-station, err = client.Station(None).load(
-    {"id": "example_id"}, None
-)
+station, err = client.Station().load({"id": "example_id"})
+print(station)
 ```
 
 ### PHP
@@ -130,15 +122,17 @@ station, err = client.Station(None).load(
 <?php
 require_once 'publibikestations_sdk.php';
 
-$client = new PublibikeStationsSDK([]);
+$client = new PublibikeStationsSDK([
+    "apikey" => getenv("PUBLIBIKE-STATIONS_APIKEY"),
+]);
 
 // List all stations
-[$stations, $err] = $client->Station(null)->list(null, null);
+[$stations, $err] = $client->Station()->list();
+print_r($stations);
 
 // Load a specific station
-[$station, $err] = $client->Station(null)->load(
-    ["id" => "example_id"], null
-);
+[$station, $err] = $client->Station()->load(["id" => "example_id"]);
+print_r($station);
 ```
 
 ### Golang
@@ -146,10 +140,13 @@ $client = new PublibikeStationsSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/publibike-stations-sdk/go"
 
-client := sdk.NewPublibikeStationsSDK(map[string]any{})
+client := sdk.NewPublibikeStationsSDK(map[string]any{
+    "apikey": os.Getenv("PUBLIBIKE-STATIONS_APIKEY"),
+})
 
 // List all stations
 stations, err := client.Station(nil).List(nil, nil)
+fmt.Println(stations)
 ```
 
 ### Ruby
@@ -157,15 +154,17 @@ stations, err := client.Station(nil).List(nil, nil)
 ```ruby
 require_relative "PublibikeStations_sdk"
 
-client = PublibikeStationsSDK.new({})
+client = PublibikeStationsSDK.new({
+  "apikey" => ENV["PUBLIBIKE-STATIONS_APIKEY"],
+})
 
 # List all stations
-stations, err = client.Station(nil).list(nil, nil)
+stations, err = client.Station().list
+puts stations
 
 # Load a specific station
-station, err = client.Station(nil).load(
-  { "id" => "example_id" }, nil
-)
+station, err = client.Station().load({ "id" => "example_id" })
+puts station
 ```
 
 ### Lua
@@ -173,15 +172,17 @@ station, err = client.Station(nil).load(
 ```lua
 local sdk = require("publibike-stations_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("PUBLIBIKE-STATIONS_APIKEY"),
+})
 
 -- List all stations
-local stations, err = client:Station(nil):list(nil, nil)
+local stations, err = client:Station():list()
+print(stations)
 
 -- Load a specific station
-local station, err = client:Station(nil):load(
-  { id = "example_id" }, nil
-)
+local station, err = client:Station():load({ id = "example_id" })
+print(station)
 ```
 
 ## Unit testing in offline mode
@@ -200,25 +201,21 @@ const result = await client.Station().load({ id: 'test01' })
 ### Python
 
 ```python
-client = PublibikeStationsSDK.test(None, None)
-result, err = client.Station(None).load(
-    {"id": "test01"}, None
-)
+client = PublibikeStationsSDK.test()
+result, err = client.Station().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = PublibikeStationsSDK::test(null, null);
-[$result, $err] = $client->Station(null)->load(
-    ["id" => "test01"], null
-);
+$client = PublibikeStationsSDK::test();
+[$result, $err] = $client->Station()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Station(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -227,19 +224,15 @@ result, err := client.Station(nil).Load(
 ### Ruby
 
 ```ruby
-client = PublibikeStationsSDK.test(nil, nil)
-result, err = client.Station(nil).load(
-  { "id" => "test01" }, nil
-)
+client = PublibikeStationsSDK.test
+result, err = client.Station().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Station(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Station():load({ id = "test01" })
 ```
 
 ## How it works
@@ -343,16 +336,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the PubliBike Stations API
-
-- Upstream: [https://www.publibike.ch](https://www.publibike.ch)
-- API docs: [https://api.publibike.ch/v1/static/api.html](https://api.publibike.ch/v1/static/api.html)
-
-- No open licence is published; contact PubliBike AG for terms covering redistribution or commercial use.
-- Service contact: support@publibike.ch.
-- General terms of business: https://www.publibike.ch/en/publibike/agb.
-- Documentation recommends polling the partner stations endpoint no more often than once per minute.
 
 ---
 

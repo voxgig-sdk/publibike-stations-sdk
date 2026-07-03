@@ -120,6 +120,7 @@ function basicSetup(extra?: any) {
     'PUBLIBIKE_STATIONS_TEST_STATION_ENTID': idmap,
     'PUBLIBIKE_STATIONS_TEST_LIVE': 'FALSE',
     'PUBLIBIKE_STATIONS_TEST_EXPLAIN': 'FALSE',
+    'PUBLIBIKE_STATIONS_APIKEY': 'NONE',
   })
 
   idmap = env['PUBLIBIKE_STATIONS_TEST_STATION_ENTID']
@@ -129,6 +130,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new PublibikeStationsSDK(merge([
       {
+        apikey: env.PUBLIBIKE_STATIONS_APIKEY,
       },
       extra
     ]))
