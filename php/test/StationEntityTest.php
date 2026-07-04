@@ -50,16 +50,14 @@ class StationEntityTest extends TestCase
         $station_ref01_ent = $client->Station(null);
         $station_ref01_match = [];
 
-        [$station_ref01_list_result, $err] = $station_ref01_ent->list($station_ref01_match, null);
-        $this->assertNull($err);
+        $station_ref01_list_result = $station_ref01_ent->list($station_ref01_match, null);
         $this->assertIsArray($station_ref01_list_result);
 
         // LOAD
         $station_ref01_match_dt0 = [
             "id" => $station_ref01_data["id"],
         ];
-        [$station_ref01_data_dt0_loaded, $err] = $station_ref01_ent->load($station_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $station_ref01_data_dt0_loaded = $station_ref01_ent->load($station_ref01_match_dt0, null);
         $station_ref01_data_dt0_load_result = Helpers::to_map($station_ref01_data_dt0_loaded);
         $this->assertNotNull($station_ref01_data_dt0_load_result);
         $this->assertEquals($station_ref01_data_dt0_load_result["id"], $station_ref01_data["id"]);
@@ -96,7 +94,6 @@ function station_basic_setup($extra)
         "PUBLIBIKESTATIONS_TEST_STATION_ENTID" => $idmap,
         "PUBLIBIKESTATIONS_TEST_LIVE" => "FALSE",
         "PUBLIBIKESTATIONS_TEST_EXPLAIN" => "FALSE",
-        "PUBLIBIKESTATIONS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -108,7 +105,6 @@ function station_basic_setup($extra)
     if ($env["PUBLIBIKESTATIONS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["PUBLIBIKESTATIONS_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -55,6 +55,9 @@ class StationEntity
         return new StationEntity($this->_client, $opts);
     }
 
+    /**
+     * @param Station|array $args Station data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class StationEntity
         }
     }
 
+    /**
+     * @return Station|array The current Station data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Station fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class StationEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Station fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -84,7 +96,16 @@ class StationEntity
     }
 
     
-    public function load($reqmatch, $ctrl = null): array
+    /**
+     * Load a single Station.
+     *
+     * @param StationLoadMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; a typed StationLoadMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Station|array The loaded Station as an assoc-array at the
+     *   SDK boundary; throws PublibikeStationsError on failure (item-5 convention).
+     */
+    public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -110,7 +131,16 @@ class StationEntity
 
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List Station items matching the given filter.
+     *
+     * @param StationListMatch|array|null $reqmatch Match filter (any subset
+     *   of Station fields) as an assoc-array; StationListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Station[]|array A list of Station items as assoc-arrays at
+     *   the SDK boundary; throws PublibikeStationsError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -138,7 +168,7 @@ class StationEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

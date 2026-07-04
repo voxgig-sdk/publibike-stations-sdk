@@ -20,9 +20,6 @@ class PublibikeStationsConfig
             ],
             "options" => [
                 "base" => "https://api.publibike.ch/v1",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -182,6 +179,7 @@ class PublibikeStationsConfig
                         'orig' => 'id',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                   ],

@@ -245,6 +245,9 @@ func (sdk *PublibikeStationsSDK) Direct(fetchargs map[string]any) (map[string]an
 }
 
 
+// Station returns a Station entity bound to this client.
+// Idiomatic usage: client.Station(nil).List(nil, nil) or
+// client.Station(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *PublibikeStationsSDK) Station(data map[string]any) PublibikeStationsEntity {
 	return NewStationEntityFunc(sdk, data)
 }

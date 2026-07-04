@@ -50,16 +50,14 @@ class TestStationEntity:
         station_ref01_ent = client.Station(None)
         station_ref01_match = {}
 
-        station_ref01_list_result, err = station_ref01_ent.list(station_ref01_match, None)
-        assert err is None
+        station_ref01_list_result = station_ref01_ent.list(station_ref01_match, None)
         assert isinstance(station_ref01_list_result, list)
 
         # LOAD
         station_ref01_match_dt0 = {
             "id": station_ref01_data["id"],
         }
-        station_ref01_data_dt0_loaded, err = station_ref01_ent.load(station_ref01_match_dt0, None)
-        assert err is None
+        station_ref01_data_dt0_loaded = station_ref01_ent.load(station_ref01_match_dt0, None)
         station_ref01_data_dt0_load_result = helpers.to_map(station_ref01_data_dt0_loaded)
         assert station_ref01_data_dt0_load_result is not None
         assert station_ref01_data_dt0_load_result["id"] == station_ref01_data["id"]
@@ -102,7 +100,6 @@ def _station_basic_setup(extra):
         "PUBLIBIKESTATIONS_TEST_STATION_ENTID": idmap,
         "PUBLIBIKESTATIONS_TEST_LIVE": "FALSE",
         "PUBLIBIKESTATIONS_TEST_EXPLAIN": "FALSE",
-        "PUBLIBIKESTATIONS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -113,7 +110,6 @@ def _station_basic_setup(extra):
     if env.get("PUBLIBIKESTATIONS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("PUBLIBIKESTATIONS_APIKEY"),
             },
             extra or {},
         ])

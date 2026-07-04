@@ -2,6 +2,8 @@
 
 import { StationEntity } from './entity/StationEntity'
 
+export type * from './PublibikeStationsTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -202,6 +204,14 @@ class PublibikeStationsSDK {
 
 
 
+  _station?: StationEntity
+
+  // Idiomatic facade: `client.station.list()` / `client.station.load({ id })`.
+  get station(): StationEntity {
+    return (this._station ??= new StationEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.station` instead. */
   Station(data?: any) {
     const self = this
     return new StationEntity(self,data)

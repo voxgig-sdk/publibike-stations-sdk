@@ -9,12 +9,9 @@ The Lua SDK for the PublibikeStations API — an entity-oriented client using Lu
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-publibike-stations
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/publibike-stations-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("publibike-stations_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("PUBLIBIKE-STATIONS_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List stations
 
 ```lua
-local result, err = client:Station():list()
+local result, err = client:station():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -53,7 +48,7 @@ end
 ### 3. Load a station
 
 ```lua
-local result, err = client:Station():load({ id = "example_id" })
+local result, err = client:station():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -101,7 +96,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:PublibikeStations():load({ id = "test01" })
+local result, err = client:station():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -134,8 +129,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-PUBLIBIKE-STATIONS_TEST_LIVE=TRUE
-PUBLIBIKE-STATIONS_APIKEY=<your-key>
+PUBLIBIKE_STATIONS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -158,7 +152,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -247,7 +240,7 @@ API path: `/public/partner/stations`
 
 ### Station
 
-Create an instance: `const station = client.Station()`
+Create an instance: `const station = client.station`
 
 #### Operations
 
@@ -277,13 +270,13 @@ Create an instance: `const station = client.Station()`
 #### Example: Load
 
 ```ts
-const station = await client.Station().load({ id: 'station_id' })
+const station = await client.station.load({ id: 'station_id' })
 ```
 
 #### Example: List
 
 ```ts
-const stations = await client.Station().list()
+const stations = await client.station.list()
 ```
 
 
@@ -358,11 +351,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local station = client:station()
+station:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- station:data_get() now returns the loaded station data
+-- station:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

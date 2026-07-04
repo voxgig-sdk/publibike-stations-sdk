@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -110,7 +109,7 @@ Alias for `PublibikeStationsSDK.test()`.
 ## StationEntity
 
 ```ts
-const station = client.Station()
+const station = client.station
 ```
 
 ### Fields
@@ -138,7 +137,7 @@ const station = client.Station()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Station().list()
+const results = await client.station.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -146,7 +145,7 @@ const results = await client.Station().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Station().load({ id: 'station_id' })
+const result = await client.station.load({ id: 'station_id' })
 ```
 
 ### Common Methods

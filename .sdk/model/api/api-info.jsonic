@@ -4,6 +4,7 @@
 main: {
   kit: {
     info: {
+      auth: false
       contact: {
         email: "contact@publibike.ch"
         name: "PubliBike AG"

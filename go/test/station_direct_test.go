@@ -194,14 +194,12 @@ func stationDirectSetup(mockres any) *stationDirectSetupResult {
 	env := envOverride(map[string]any{
 		"PUBLIBIKESTATIONS_TEST_STATION_ENTID": map[string]any{},
 		"PUBLIBIKESTATIONS_TEST_LIVE":    "FALSE",
-		"PUBLIBIKESTATIONS_APIKEY":       "NONE",
 	})
 
 	live := env["PUBLIBIKESTATIONS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["PUBLIBIKESTATIONS_APIKEY"],
 		}
 		client := sdk.NewPublibikeStationsSDK(mergedOpts)
 

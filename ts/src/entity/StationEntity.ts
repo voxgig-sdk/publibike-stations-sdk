@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Station,
+  StationLoadMatch,
+  StationListMatch,
+} from '../PublibikeStationsTypes'
 
 // TODO: needs Entity superclass
-class StationEntity extends PublibikeStationsEntityBase {
+class StationEntity extends PublibikeStationsEntityBase<Station> {
 
   constructor(client: PublibikeStationsSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +37,7 @@ class StationEntity extends PublibikeStationsEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: StationLoadMatch, ctrl?: Control): Promise<Station> {
 
     const utility = this._utility
 
@@ -136,14 +141,16 @@ class StationEntity extends PublibikeStationsEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Station> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: StationListMatch, ctrl?: Control): Promise<Station[]> {
 
     const utility = this._utility
 
@@ -243,7 +250,9 @@ class StationEntity extends PublibikeStationsEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Station[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

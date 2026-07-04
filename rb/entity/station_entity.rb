@@ -45,6 +45,7 @@ class StationEntity
     end
   end
 
+  # @return [Station, Hash] the current Station data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class StationEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Station fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Station.
+  #
+  # @param reqmatch [StationLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Station, Hash] the loaded Station; raises PublibikeStationsError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class StationEntity
 
 
   
+  # List Station items matching the given filter.
+  #
+  # @param reqmatch [StationListMatch, Hash, nil] match filter (any subset of Station fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Station>, Array] the matching Station items; raises PublibikeStationsError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

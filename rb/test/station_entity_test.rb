@@ -43,16 +43,14 @@ class StationEntityTest < Minitest::Test
     station_ref01_ent = client.Station(nil)
     station_ref01_match = {}
 
-    station_ref01_list_result, err = station_ref01_ent.list(station_ref01_match, nil)
-    assert_nil err
+    station_ref01_list_result = station_ref01_ent.list(station_ref01_match, nil)
     assert station_ref01_list_result.is_a?(Array)
 
     # LOAD
     station_ref01_match_dt0 = {
       "id" => station_ref01_data["id"],
     }
-    station_ref01_data_dt0_loaded, err = station_ref01_ent.load(station_ref01_match_dt0, nil)
-    assert_nil err
+    station_ref01_data_dt0_loaded = station_ref01_ent.load(station_ref01_match_dt0, nil)
     station_ref01_data_dt0_load_result = Helpers.to_map(station_ref01_data_dt0_loaded)
     assert !station_ref01_data_dt0_load_result.nil?
     assert_equal station_ref01_data_dt0_load_result["id"], station_ref01_data["id"]
@@ -93,7 +91,6 @@ def station_basic_setup(extra)
     "PUBLIBIKESTATIONS_TEST_STATION_ENTID" => idmap,
     "PUBLIBIKESTATIONS_TEST_LIVE" => "FALSE",
     "PUBLIBIKESTATIONS_TEST_EXPLAIN" => "FALSE",
-    "PUBLIBIKESTATIONS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -105,7 +102,6 @@ def station_basic_setup(extra)
   if env["PUBLIBIKESTATIONS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["PUBLIBIKESTATIONS_APIKEY"],
       },
       extra || {},
     ])

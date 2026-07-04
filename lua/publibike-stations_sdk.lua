@@ -244,6 +244,19 @@ end
 
 
 
+-- Idiomatic facade: client:station():list() / client:station():load({ id = ... })
+function PublibikeStationsSDK:station(data)
+  local EntityMod = require("entity.station_entity")
+  if data == nil then
+    if self._station == nil then
+      self._station = EntityMod.new(self, nil)
+    end
+    return self._station
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:station() instead.
 function PublibikeStationsSDK:Station(data)
   local EntityMod = require("entity.station_entity")
   return EntityMod.new(self, data)
