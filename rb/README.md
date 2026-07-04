@@ -28,16 +28,14 @@ require_relative "PublibikeStations_sdk"
 client = PublibikeStationsSDK.new
 ```
 
-### 2. List stations
+### 2. List station records
 
 ```ruby
 begin
-  result = client.station.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Station records — iterate directly.
+  stations = client.Station.list
+  stations.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -48,8 +46,9 @@ end
 
 ```ruby
 begin
-  result = client.station.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Station record (raises on error).
+  station = client.Station.load({ "id" => "example_id" })
+  puts station
 rescue => err
   warn "load failed: #{err}"
 end
@@ -96,13 +95,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = PublibikeStationsSDK.test
+client = PublibikeStationsSDK.test({
+  "entity" => { "station" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.station.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+station = client.Station.load({ "id" => "test01" })
+puts station
 ```
 
 ### Use a custom fetch function
@@ -246,7 +249,7 @@ API path: `/public/partner/stations`
 
 ### Station
 
-Create an instance: `const station = client.station`
+Create an instance: `station = client.Station`
 
 #### Operations
 
@@ -275,14 +278,16 @@ Create an instance: `const station = client.station`
 
 #### Example: Load
 
-```ts
-const station = await client.station.load({ id: 'station_id' })
+```ruby
+# load returns the bare Station record (raises on error).
+station = client.Station.load({ "id" => "station_id" })
 ```
 
 #### Example: List
 
-```ts
-const stations = await client.station.list()
+```ruby
+# list returns an Array of Station records (raises on error).
+stations = client.Station.list
 ```
 
 
@@ -357,7 +362,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-station = client.station
+station = client.Station
 station.load({ "id" => "example_id" })
 
 # station.data_get now returns the loaded station data

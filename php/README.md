@@ -29,18 +29,16 @@ require_once 'publibikestations_sdk.php';
 $client = new PublibikeStationsSDK();
 ```
 
-### 2. List stations
+### 2. List station records
 
 ```php
 try {
-    $result = $client->station()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Station records — iterate directly.
+    $stations = $client->Station()->list();
+    foreach ($stations as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -49,9 +47,10 @@ try {
 
 ```php
 try {
-    $result = $client->station()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Station record (throws on error).
+    $station = $client->Station()->load(["id" => "example_id"]);
+    print_r($station);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -97,13 +96,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = PublibikeStationsSDK::test();
+$client = PublibikeStationsSDK::test([
+    "entity" => ["station" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->station()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$station = $client->Station()->load(["id" => "test01"]);
+print_r($station);
 ```
 
 ### Use a custom fetch function
@@ -251,7 +254,7 @@ API path: `/public/partner/stations`
 
 ### Station
 
-Create an instance: `const station = client.station`
+Create an instance: `$station = $client->Station();`
 
 #### Operations
 
@@ -280,14 +283,16 @@ Create an instance: `const station = client.station`
 
 #### Example: Load
 
-```ts
-const station = await client.station.load({ id: 'station_id' })
+```php
+// load() returns the bare Station record (throws on error).
+$station = $client->Station()->load(["id" => "station_id"]);
 ```
 
 #### Example: List
 
-```ts
-const stations = await client.station.list()
+```php
+// list() returns an array of Station records (throws on error).
+$stations = $client->Station()->list();
 ```
 
 
@@ -362,7 +367,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$station = $client->station();
+$station = $client->Station();
 $station->load(["id" => "example_id"]);
 
 // $station->dataGet() now returns the loaded station data

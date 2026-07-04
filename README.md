@@ -26,9 +26,11 @@ import { PublibikeStationsSDK } from '@voxgig-sdk/publibike-stations'
 
 const client = new PublibikeStationsSDK()
 
-// List all stations
-const stations = await client.station.list()
-console.log(stations.data)
+// List all stations (returns Station[])
+const stations = await client.Station().list()
+for (const station of stations) {
+  console.log(station)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -83,12 +85,13 @@ from publibikestations_sdk import PublibikeStationsSDK
 
 client = PublibikeStationsSDK()
 
-# List all stations
-stations = client.station.list()
-print(stations)
+# List all stations (returns a list, raises on error)
+stations = client.Station().list({})
+for station in stations:
+    print(station)
 
-# Load a specific station
-station = client.station.load({"id": "example_id"})
+# Load a specific station (returns the record, raises on error)
+station = client.Station().load({"id": "example_id"})
 print(station)
 ```
 
@@ -100,12 +103,12 @@ require_once 'publibikestations_sdk.php';
 
 $client = new PublibikeStationsSDK();
 
-// List all stations (throws on error)
-$stations = $client->station()->list();
+// List all stations (returns an array; throws on error)
+$stations = $client->Station()->list();
 print_r($stations);
 
-// Load a specific station
-$station = $client->station()->load(["id" => "example_id"]);
+// Load a specific station (returns the bare record; throws on error)
+$station = $client->Station()->load(["id" => "example_id"]);
 print_r($station);
 ```
 
@@ -128,12 +131,12 @@ require_relative "PublibikeStations_sdk"
 
 client = PublibikeStationsSDK.new
 
-# List all stations
-stations = client.station.list
+# List all stations (returns an Array; raises on error)
+stations = client.Station.list
 puts stations
 
-# Load a specific station
-station = client.station.load({ "id" => "example_id" })
+# Load a specific station (returns the bare record; raises on error)
+station = client.Station.load({ "id" => "example_id" })
 puts station
 ```
 
@@ -145,11 +148,11 @@ local sdk = require("publibike-stations_sdk")
 local client = sdk.new()
 
 -- List all stations
-local stations, err = client:station():list()
+local stations, err = client:Station():list()
 print(stations)
 
 -- Load a specific station
-local station, err = client:station():load({ id = "example_id" })
+local station, err = client:Station():load({ id = "example_id" })
 print(station)
 ```
 
@@ -162,22 +165,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = PublibikeStationsSDK.test()
-const result = await client.station.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const station = await client.Station().load({ id: 1 })
+// station is a bare Station populated with mock data
+console.log(station)
 ```
 
 ### Python
 
 ```python
 client = PublibikeStationsSDK.test()
-result = client.station.load({"id": "test01"})
+station = client.Station().load({"id": "test01"})
+print(station)
 ```
 
 ### PHP
 
 ```php
-$client = PublibikeStationsSDK::test();
-$result = $client->station()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = PublibikeStationsSDK::test([
+    "entity" => ["station" => ["test01" => ["id" => "test01"]]],
+]);
+$station = $client->Station()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -192,15 +200,18 @@ result, err := client.Station(nil).Load(
 ### Ruby
 
 ```ruby
-client = PublibikeStationsSDK.test
-result = client.station.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = PublibikeStationsSDK.test({
+  "entity" => { "station" => { "test01" => { "id" => "test01" } } },
+})
+station = client.Station.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:station():load({ id = "test01" })
+local result, err = client:Station():load({ id = "test01" })
 ```
 
 ## How it works
@@ -248,6 +259,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

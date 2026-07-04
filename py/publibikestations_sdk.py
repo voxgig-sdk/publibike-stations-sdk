@@ -220,25 +220,15 @@ class PublibikeStationsSDK:
         }
 
 
-    @property
-    def station(self):
-        """Idiomatic facade: client.station.list() / client.station.load({"id": ...})."""
-        from entity.station_entity import StationEntity
-        cached = getattr(self, "_station", None)
-        if cached is None:
-            cached = StationEntity(self, None)
-            self._station = cached
-        return cached
-
-    def Station(self, data=None):
-        # Deprecated: use client.station instead.
+    def Station(self, data=None) -> "StationEntity":
+        """Entity factory: client.Station().list({}) / client.Station().load({"id": ...})."""
         from entity.station_entity import StationEntity
         return StationEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "PublibikeStationsSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class PublibikeStationsSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.station_entity import StationEntity

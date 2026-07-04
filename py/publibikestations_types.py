@@ -4,48 +4,52 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Station:
+class StationRequired(TypedDict):
     id: int
     latitude: float
     longitude: float
     name: str
     network: dict
     state: dict
-    address: Optional[str] = None
-    capacity: Optional[int] = None
-    city: Optional[str] = None
-    is_virtual_station: Optional[bool] = None
-    sponsor: Optional[list] = None
-    vehicle: Optional[list] = None
-    zip: Optional[str] = None
 
 
-@dataclass
-class StationLoadMatch:
+class Station(StationRequired, total=False):
+    address: str
+    capacity: int
+    city: str
+    is_virtual_station: bool
+    sponsor: list
+    vehicle: list
+    zip: str
+
+
+class StationLoadMatch(TypedDict):
     id: int
 
 
-@dataclass
-class StationListMatch:
-    address: Optional[str] = None
-    capacity: Optional[int] = None
-    city: Optional[str] = None
-    id: Optional[int] = None
-    is_virtual_station: Optional[bool] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    name: Optional[str] = None
-    network: Optional[dict] = None
-    sponsor: Optional[list] = None
-    state: Optional[dict] = None
-    vehicle: Optional[list] = None
-    zip: Optional[str] = None
-
+class StationListMatch(TypedDict, total=False):
+    address: str
+    capacity: int
+    city: str
+    id: int
+    is_virtual_station: bool
+    latitude: float
+    longitude: float
+    name: str
+    network: dict
+    sponsor: list
+    state: dict
+    vehicle: list
+    zip: str

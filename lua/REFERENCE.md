@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## StationEntity
 
 ```lua
-local station = client:station(nil)
+local station = client:Station(nil)
 ```
 
 ### Fields
@@ -111,7 +111,7 @@ local station = client:station(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:station():list()
+local results, err = client:Station():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -119,7 +119,7 @@ local results, err = client:station():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:station():load({ id = "station_id" })
+local result, err = client:Station():load({ id = "station_id" })
 ```
 
 ### Common Methods

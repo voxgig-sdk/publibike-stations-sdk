@@ -109,7 +109,7 @@ Alias for `PublibikeStationsSDK.test()`.
 ## StationEntity
 
 ```ts
-const station = client.station
+const station = client.Station()
 ```
 
 ### Fields
@@ -137,7 +137,7 @@ const station = client.station
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.station.list()
+const results = await client.Station().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -145,7 +145,7 @@ const results = await client.station.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.station.load({ id: 'station_id' })
+const result = await client.Station().load({ id: 'station_id' })
 ```
 
 ### Common Methods

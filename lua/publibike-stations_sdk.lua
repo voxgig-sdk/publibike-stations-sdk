@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:station():list() / client:station():load({ id = ... })
-function PublibikeStationsSDK:station(data)
+-- Idiomatic facade: client:Station():list() / client:Station():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function PublibikeStationsSDK:Station(data)
   local EntityMod = require("entity.station_entity")
   if data == nil then
     if self._station == nil then
@@ -253,12 +254,6 @@ function PublibikeStationsSDK:station(data)
     end
     return self._station
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:station() instead.
-function PublibikeStationsSDK:Station(data)
-  local EntityMod = require("entity.station_entity")
   return EntityMod.new(self, data)
 end
 

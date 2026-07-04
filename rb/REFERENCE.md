@@ -86,7 +86,7 @@ same parameters as `direct()`. Raises on error.
 ## StationEntity
 
 ```ruby
-station = client.station
+station = client.Station
 ```
 
 ### Fields
@@ -114,7 +114,7 @@ station = client.station
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.station.list(nil)
+results = client.Station.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -122,7 +122,7 @@ results = client.station.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.station.load({ "id" => "station_id" })
+result = client.Station.load({ "id" => "station_id" })
 ```
 
 ### Common Methods

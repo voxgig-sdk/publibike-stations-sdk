@@ -85,7 +85,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## StationEntity
 
 ```php
-$station = $client->station();
+$station = $client->Station();
 ```
 
 ### Fields
@@ -113,7 +113,7 @@ $station = $client->station();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->station()->list([]);
+$results = $client->Station()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -121,7 +121,7 @@ $results = $client->station()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->station()->load(["id" => "station_id"]);
+$result = $client->Station()->load(["id" => "station_id"]);
 ```
 
 ### Common Methods

@@ -28,25 +28,28 @@ import { PublibikeStationsSDK } from '@voxgig-sdk/publibike-stations'
 const client = new PublibikeStationsSDK()
 ```
 
-### 2. List stations
+### 2. List station records
+
+`list()` resolves to an array of Station objects — iterate it directly:
 
 ```ts
-const result = await client.station.list()
+const stations = await client.Station().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const station of stations) {
+  console.log(station)
 }
 ```
 
 ### 3. Load a station
 
-```ts
-const result = await client.station.load({ id: 'example_id' })
+`load()` returns the entity directly and throws on failure:
 
-if (result.ok) {
-  console.log(result.data)
+```ts
+try {
+  const station = await client.Station().load({ id: 'example_id' })
+  console.log(station)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
@@ -64,6 +67,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -92,9 +98,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = PublibikeStationsSDK.test()
 
-const result = await client.station.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const station = await client.Station().load({ id: 'test01' })
+// station is a bare entity populated with mock response data
+console.log(station)
 ```
 
 You can also use the instance method:
@@ -109,7 +115,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.station
+const entity = client.Station()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -204,29 +210,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): PublibikeStationsSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -287,7 +294,7 @@ API path: `/public/partner/stations`
 
 ### Station
 
-Create an instance: `const station = client.station`
+Create an instance: `const station = client.Station()`
 
 #### Operations
 
@@ -317,13 +324,13 @@ Create an instance: `const station = client.station`
 #### Example: Load
 
 ```ts
-const station = await client.station.load({ id: 'station_id' })
+const station = await client.Station().load({ id: 'station_id' })
 ```
 
 #### Example: List
 
 ```ts
-const stations = await client.station.list()
+const stations = await client.Station().list()
 ```
 
 
@@ -394,7 +401,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const station = client.station
+const station = client.Station()
 await station.load({ id: "example_id" })
 
 // station.data() now returns the loaded station data

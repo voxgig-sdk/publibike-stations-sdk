@@ -208,13 +208,7 @@ class PublibikeStationsSDK
   end
 
 
-  # Idiomatic facade: client.station.list / client.station.load({ "id" => ... })
-  def station
-    require_relative 'entity/station_entity'
-    @station ||= StationEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.station instead.
+  # Canonical facade: client.Station.list / client.Station.load({ "id" => ... })
   def Station(data = nil)
     require_relative 'entity/station_entity'
     StationEntity.new(self, data)

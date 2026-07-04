@@ -31,24 +31,28 @@ from publibikestations_sdk import PublibikeStationsSDK
 client = PublibikeStationsSDK()
 ```
 
-### 2. List stations
+### 2. List station records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.station.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    stations = client.Station().list({})
+    for station in stations:
+        print(station)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
 ### 3. Load a station
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.station.load({"id": "example_id"})
-    print(result)
+    station = client.Station().load({"id": "example_id"})
+    print(station)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -96,8 +100,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = PublibikeStationsSDK.test()
 
-result = client.station.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+station = client.Station().load({"id": "test01"})
+# station contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -242,7 +247,7 @@ API path: `/public/partner/stations`
 
 ### Station
 
-Create an instance: `const station = client.station`
+Create an instance: `station = client.Station()`
 
 #### Operations
 
@@ -271,14 +276,14 @@ Create an instance: `const station = client.station`
 
 #### Example: Load
 
-```ts
-const station = await client.station.load({ id: 'station_id' })
+```python
+station = client.Station().load({"id": "station_id"})
 ```
 
 #### Example: List
 
-```ts
-const stations = await client.station.list()
+```python
+stations = client.Station().list({})
 ```
 
 
@@ -352,7 +357,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-station = client.station
+station = client.Station()
 station.load({"id": "example_id"})
 
 # station.data_get() now returns the loaded station data
