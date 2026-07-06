@@ -8,7 +8,7 @@ Complete API reference for the PublibikeStations Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'publibike-stations_sdk'
+require_relative 'PublibikeStations_sdk'
 
 client = PublibikeStationsSDK.new(options)
 ```
@@ -93,28 +93,28 @@ station = client.Station
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `capacity` | ``$INTEGER`` | No |  |
-| `city` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `is_virtual_station` | ``$BOOLEAN`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `network` | ``$OBJECT`` | Yes |  |
-| `sponsor` | ``$ARRAY`` | No |  |
-| `state` | ``$OBJECT`` | Yes |  |
-| `vehicle` | ``$ARRAY`` | No |  |
-| `zip` | ``$STRING`` | No |  |
+| `address` | `String` | No |  |
+| `capacity` | `Integer` | No |  |
+| `city` | `String` | No |  |
+| `id` | `Integer` | Yes |  |
+| `is_virtual_station` | `Boolean` | No |  |
+| `latitude` | `Float` | Yes |  |
+| `longitude` | `Float` | Yes |  |
+| `name` | `String` | Yes |  |
+| `network` | `Hash` | Yes |  |
+| `sponsor` | `Array` | No |  |
+| `state` | `Hash` | Yes |  |
+| `vehicle` | `Array` | No |  |
+| `zip` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Station.list(nil)
+results = client.Station.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`

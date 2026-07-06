@@ -36,7 +36,7 @@ class StationLoadMatch
     public int $id;
 }
 
-/** Match filter for Station#list (any subset of Station fields). */
+/** Request payload for Station#list. */
 class StationListMatch
 {
     public ?string $address = null;

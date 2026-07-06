@@ -25,6 +25,19 @@
 ---@field id number
 
 ---@class StationListMatch
+---@field address? string
+---@field capacity? number
+---@field city? string
+---@field id? number
+---@field is_virtual_station? boolean
+---@field latitude? number
+---@field longitude? number
+---@field name? string
+---@field network? table
+---@field sponsor? table
+---@field state? table
+---@field vehicle? table
+---@field zip? string
 
 local M = {}
 

@@ -30,8 +30,7 @@ type StationLoadMatch struct {
 	Id int `json:"id"`
 }
 
-// StationListMatch mirrors the station fields as an all-optional match
-// filter (Go analog of Partial<Station>).
+// StationListMatch is the typed request payload for Station.ListTyped.
 type StationListMatch struct {
 	Address *string `json:"address,omitempty"`
 	Capacity *int `json:"capacity,omitempty"`

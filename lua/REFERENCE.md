@@ -90,19 +90,19 @@ local station = client:Station(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `capacity` | ``$INTEGER`` | No |  |
-| `city` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `is_virtual_station` | ``$BOOLEAN`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `network` | ``$OBJECT`` | Yes |  |
-| `sponsor` | ``$ARRAY`` | No |  |
-| `state` | ``$OBJECT`` | Yes |  |
-| `vehicle` | ``$ARRAY`` | No |  |
-| `zip` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `capacity` | `number` | No |  |
+| `city` | `string` | No |  |
+| `id` | `number` | Yes |  |
+| `is_virtual_station` | `boolean` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | Yes |  |
+| `network` | `table` | Yes |  |
+| `sponsor` | `table` | No |  |
+| `state` | `table` | Yes |  |
+| `vehicle` | `table` | No |  |
+| `zip` | `string` | No |  |
 
 ### Operations
 

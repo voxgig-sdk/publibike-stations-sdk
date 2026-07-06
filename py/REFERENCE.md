@@ -8,7 +8,7 @@ Complete API reference for the PublibikeStations Python SDK.
 ### Constructor
 
 ```python
-from publibike-stations_sdk import PublibikeStationsSDK
+from publibikestations_sdk import PublibikeStationsSDK
 
 client = PublibikeStationsSDK(options)
 ```
@@ -87,28 +87,28 @@ station = client.Station()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `capacity` | ``$INTEGER`` | No |  |
-| `city` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `is_virtual_station` | ``$BOOLEAN`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `network` | ``$OBJECT`` | Yes |  |
-| `sponsor` | ``$ARRAY`` | No |  |
-| `state` | ``$OBJECT`` | Yes |  |
-| `vehicle` | ``$ARRAY`` | No |  |
-| `zip` | ``$STRING`` | No |  |
+| `address` | `str` | No |  |
+| `capacity` | `int` | No |  |
+| `city` | `str` | No |  |
+| `id` | `int` | Yes |  |
+| `is_virtual_station` | `bool` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `str` | Yes |  |
+| `network` | `dict` | Yes |  |
+| `sponsor` | `list` | No |  |
+| `state` | `dict` | Yes |  |
+| `vehicle` | `list` | No |  |
+| `zip` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Station().list({})
+results = client.Station().list()
 for station in results:
     print(station)
 ```

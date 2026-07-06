@@ -221,7 +221,7 @@ class PublibikeStationsSDK:
 
 
     def Station(self, data=None) -> "StationEntity":
-        """Entity factory: client.Station().list({}) / client.Station().load({"id": ...})."""
+        """Entity factory: client.Station().list() / client.Station().load({"id": ...})."""
         from entity.station_entity import StationEntity
         return StationEntity(self, data)
 

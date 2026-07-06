@@ -25,5 +25,19 @@ export interface StationLoadMatch {
   id: number
 }
 
-export type StationListMatch = Partial<Station>
+export interface StationListMatch {
+  address?: string
+  capacity?: number
+  city?: string
+  id?: number
+  is_virtual_station?: boolean
+  latitude?: number
+  longitude?: number
+  name?: string
+  network?: Record<string, any>
+  sponsor?: any[]
+  state?: Record<string, any>
+  vehicle?: any[]
+  zip?: string
+}
 

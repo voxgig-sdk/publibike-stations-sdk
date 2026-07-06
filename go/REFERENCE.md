@@ -97,19 +97,19 @@ station := client.Station(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `capacity` | ``$INTEGER`` | No |  |
-| `city` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `is_virtual_station` | ``$BOOLEAN`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `network` | ``$OBJECT`` | Yes |  |
-| `sponsor` | ``$ARRAY`` | No |  |
-| `state` | ``$OBJECT`` | Yes |  |
-| `vehicle` | ``$ARRAY`` | No |  |
-| `zip` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `capacity` | `int` | No |  |
+| `city` | `string` | No |  |
+| `id` | `int` | Yes |  |
+| `is_virtual_station` | `bool` | No |  |
+| `latitude` | `float64` | Yes |  |
+| `longitude` | `float64` | Yes |  |
+| `name` | `string` | Yes |  |
+| `network` | `map[string]any` | Yes |  |
+| `sponsor` | `[]any` | No |  |
+| `state` | `map[string]any` | Yes |  |
+| `vehicle` | `[]any` | No |  |
+| `zip` | `string` | No |  |
 
 ### Operations
 

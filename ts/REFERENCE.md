@@ -116,19 +116,19 @@ const station = client.Station()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `capacity` | ``$INTEGER`` | No |  |
-| `city` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `is_virtual_station` | ``$BOOLEAN`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `network` | ``$OBJECT`` | Yes |  |
-| `sponsor` | ``$ARRAY`` | No |  |
-| `state` | ``$OBJECT`` | Yes |  |
-| `vehicle` | ``$ARRAY`` | No |  |
-| `zip` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `capacity` | `number` | No |  |
+| `city` | `string` | No |  |
+| `id` | `number` | Yes |  |
+| `is_virtual_station` | `boolean` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | Yes |  |
+| `network` | `Record<string, any>` | Yes |  |
+| `sponsor` | `any[]` | No |  |
+| `state` | `Record<string, any>` | Yes |  |
+| `vehicle` | `any[]` | No |  |
+| `zip` | `string` | No |  |
 
 ### Operations
 
@@ -145,7 +145,7 @@ const results = await client.Station().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Station().load({ id: 'station_id' })
+const result = await client.Station().load({ id: 1 })
 ```
 
 ### Common Methods

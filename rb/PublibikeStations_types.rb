@@ -74,7 +74,7 @@ StationLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Station#list (any subset of Station fields).
+# Request payload for Station#list.
 #
 # @!attribute [rw] address
 #   @return [String, nil]

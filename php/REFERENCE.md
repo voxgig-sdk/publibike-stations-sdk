@@ -8,7 +8,7 @@ Complete API reference for the PublibikeStations PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/publibike-stations_sdk.php';
+require_once __DIR__ . '/publibikestations_sdk.php';
 
 $client = new PublibikeStationsSDK($options);
 ```
@@ -45,11 +45,11 @@ $client = PublibikeStationsSDK::test();
 
 Create a new `StationEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): PublibikeStationsUtility`
 
 Return a copy of the SDK utility object.
 
@@ -92,28 +92,28 @@ $station = $client->Station();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `capacity` | ``$INTEGER`` | No |  |
-| `city` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `is_virtual_station` | ``$BOOLEAN`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `network` | ``$OBJECT`` | Yes |  |
-| `sponsor` | ``$ARRAY`` | No |  |
-| `state` | ``$OBJECT`` | Yes |  |
-| `vehicle` | ``$ARRAY`` | No |  |
-| `zip` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `capacity` | `int` | No |  |
+| `city` | `string` | No |  |
+| `id` | `int` | Yes |  |
+| `is_virtual_station` | `bool` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `string` | Yes |  |
+| `network` | `array` | Yes |  |
+| `sponsor` | `array` | No |  |
+| `state` | `array` | Yes |  |
+| `vehicle` | `array` | No |  |
+| `zip` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Station()->list([]);
+$results = $client->Station()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -126,19 +126,19 @@ $result = $client->Station()->load(["id" => "station_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -147,7 +147,7 @@ Set the entity match criteria.
 Create a new `StationEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
