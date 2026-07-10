@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -347,15 +344,18 @@
         "license": {
           "name": "Contact PubliBike AG for license information"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://api.publibike.ch/v1"
           }
         ],
+        "summary": "Provides information about PubliBike stations, their states, positions, and available vehicles.",
         "termsOfService": "https://www.publibike.ch/en/terms-of-service",
         "title": "PubliBike Stations API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://publibike.ch"
       },
       "option": {},
       "target": {
@@ -408,6 +408,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -458,6 +461,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

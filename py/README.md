@@ -56,7 +56,7 @@ except Exception as err:
 
 ```python
 try:
-    station = client.Station().load({"id": "example_id"})
+    station = client.Station().load({"id": 1})
     print(station)
 except Exception as err:
     print(f"load failed: {err}")
@@ -310,7 +310,7 @@ Create an instance: `station = client.Station()`
 #### Example: Load
 
 ```python
-station = client.Station().load({"id": "station_id"})
+station = client.Station().load({"id": 1})
 ```
 
 #### Example: List

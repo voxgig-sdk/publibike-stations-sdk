@@ -49,7 +49,7 @@ end
 ```ruby
 begin
   # load returns the bare Station record (raises on error).
-  station = client.Station.load({ "id" => "example_id" })
+  station = client.Station.load({ "id" => 1 })
   puts station
 rescue => err
   warn "load failed: #{err}"
@@ -308,7 +308,7 @@ Create an instance: `station = client.Station`
 
 ```ruby
 # load returns the bare Station record (raises on error).
-station = client.Station.load({ "id" => "station_id" })
+station = client.Station.load({ "id" => 1 })
 ```
 
 #### Example: List

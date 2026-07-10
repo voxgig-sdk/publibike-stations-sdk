@@ -324,7 +324,7 @@ Create an instance: `station := client.Station(nil)`
 #### Example: Load
 
 ```go
-station, err := client.Station(nil).Load(map[string]any{"id": "station_id"}, nil)
+station, err := client.Station(nil).Load(map[string]any{"id": 1}, nil)
 if err != nil {
     panic(err)
 }

@@ -50,7 +50,7 @@ end
 ### 3. Load a station
 
 ```lua
-local station, err = client:Station():load({ id = "example_id" })
+local station, err = client:Station():load({ id = 1 })
 if err then error(err) end
 print(station)
 ```
@@ -296,7 +296,7 @@ Create an instance: `local station = client:Station(nil)`
 #### Example: Load
 
 ```lua
-local station, err = client:Station():load({ id = "station_id" })
+local station, err = client:Station():load({ id = 1 })
 ```
 
 #### Example: List

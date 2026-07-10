@@ -20,10 +20,10 @@ main: {
           url: "https://api.publibike.ch/v1"
         }
       ]
+      summary: "Provides information about PubliBike stations, their states, positions, and available vehicles."
       termsOfService: "https://www.publibike.ch/en/terms-of-service"
       title: "PubliBike Stations API"
       version: "1.0.0"
+      website: "https://publibike.ch"
     }
   }
-}
-

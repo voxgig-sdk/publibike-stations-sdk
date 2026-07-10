@@ -119,7 +119,7 @@ local results, err = client:Station():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Station():load({ id = "station_id" })
+local result, err = client:Station():load({ id = 1 })
 ```
 
 ### Common Methods

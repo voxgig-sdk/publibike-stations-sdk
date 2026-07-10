@@ -50,7 +50,7 @@ try {
 ```php
 try {
     // load() returns the bare Station record (throws on error).
-    $station = $client->Station()->load(["id" => "example_id"]);
+    $station = $client->Station()->load(["id" => 1]);
     print_r($station);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -318,7 +318,7 @@ Create an instance: `$station = $client->Station();`
 
 ```php
 // load() returns the bare Station record (throws on error).
-$station = $client->Station()->load(["id" => "station_id"]);
+$station = $client->Station()->load(["id" => 1]);
 ```
 
 #### Example: List

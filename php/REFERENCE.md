@@ -121,7 +121,7 @@ $results = $client->Station()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Station()->load(["id" => "station_id"]);
+$result = $client->Station()->load(["id" => 1]);
 ```
 
 ### Common Methods
