@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- PublibikeStations SDK exists test
 
 local sdk = require("publibike-stations_sdk")
 
