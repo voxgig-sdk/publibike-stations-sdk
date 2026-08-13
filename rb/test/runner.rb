@@ -23,8 +23,8 @@ module PublibikeStationsTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("PUBLIBIKESTATIONS_TEST_LIVE")
-    override = getenv("PUBLIBIKESTATIONS_TEST_OVERRIDE")
+    live = getenv("PUBLIBIKE_STATIONS_TEST_LIVE")
+    override = getenv("PUBLIBIKE_STATIONS_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module PublibikeStationsTestRunner
       end
     end
 
-    explain = getenv("PUBLIBIKESTATIONS_TEST_EXPLAIN")
-    m["PUBLIBIKESTATIONS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("PUBLIBIKE_STATIONS_TEST_EXPLAIN")
+    m["PUBLIBIKE_STATIONS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

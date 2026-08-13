@@ -125,9 +125,9 @@ const station = client.Station()
 | `longitude` | `number` | Yes |  |
 | `name` | `string` | Yes |  |
 | `network` | `Record<string, any>` | Yes |  |
-| `sponsor` | `any[]` | No |  |
+| `sponsors` | `any[]` | No |  |
 | `state` | `Record<string, any>` | Yes |  |
-| `vehicle` | `any[]` | No |  |
+| `vehicles` | `any[]` | No |  |
 | `zip` | `string` | No |  |
 
 ### Operations

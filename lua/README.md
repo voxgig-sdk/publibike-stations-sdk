@@ -250,9 +250,9 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | `longitude` |  |
 | `name` |  |
 | `network` |  |
-| `sponsor` |  |
+| `sponsors` |  |
 | `state` |  |
-| `vehicle` |  |
+| `vehicles` |  |
 | `zip` |  |
 
 Operations: List, Load.
@@ -288,9 +288,9 @@ Create an instance: `local station = client:Station(nil)`
 | `longitude` | `number` |  |
 | `name` | `string` |  |
 | `network` | `table` |  |
-| `sponsor` | `table` |  |
+| `sponsors` | `table` |  |
 | `state` | `table` |  |
-| `vehicle` | `table` |  |
+| `vehicles` | `table` |  |
 | `zip` | `string` |  |
 
 #### Example: Load

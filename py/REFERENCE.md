@@ -96,9 +96,9 @@ station = client.Station()
 | `longitude` | `float` | Yes |  |
 | `name` | `str` | Yes |  |
 | `network` | `dict` | Yes |  |
-| `sponsor` | `list` | No |  |
+| `sponsors` | `list` | No |  |
 | `state` | `dict` | Yes |  |
-| `vehicle` | `list` | No |  |
+| `vehicles` | `list` | No |  |
 | `zip` | `str` | No |  |
 
 ### Operations

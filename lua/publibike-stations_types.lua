@@ -16,9 +16,9 @@
 ---@field longitude number
 ---@field name string
 ---@field network table
----@field sponsor? table
+---@field sponsors? table
 ---@field state table
----@field vehicle? table
+---@field vehicles? table
 ---@field zip? string
 
 ---@class StationLoadMatch
@@ -34,9 +34,9 @@
 ---@field longitude? number
 ---@field name? string
 ---@field network? table
----@field sponsor? table
+---@field sponsors? table
 ---@field state? table
----@field vehicle? table
+---@field vehicles? table
 ---@field zip? string
 
 local M = {}

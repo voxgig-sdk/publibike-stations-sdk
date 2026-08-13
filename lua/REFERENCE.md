@@ -99,9 +99,9 @@ local station = client:Station(nil)
 | `longitude` | `number` | Yes |  |
 | `name` | `string` | Yes |  |
 | `network` | `table` | Yes |  |
-| `sponsor` | `table` | No |  |
+| `sponsors` | `table` | No |  |
 | `state` | `table` | Yes |  |
-| `vehicle` | `table` | No |  |
+| `vehicles` | `table` | No |  |
 | `zip` | `string` | No |  |
 
 ### Operations

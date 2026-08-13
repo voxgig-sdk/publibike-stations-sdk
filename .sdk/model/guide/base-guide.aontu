@@ -8,6 +8,7 @@ guide: {
   entity: station: {
     path: "/public/partner/stations": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.stations`")|top
     }
     path: "/public/stations": {
       op: list: method: *GET

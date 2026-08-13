@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import PublibikeStationsControl
-from core.error import PublibikeStationsError
-from core.result import PublibikeStationsResult
-from core.spec import PublibikeStationsSpec
+from publibikestations_sdk.config import make_config
+from publibikestations_sdk.features import _make_feature
+from publibikestations_sdk.core.control import PublibikeStationsControl
+from publibikestations_sdk.core.error import PublibikeStationsError
+from publibikestations_sdk.core.result import PublibikeStationsResult
+from publibikestations_sdk.core.spec import PublibikeStationsSpec
 
 
 # True when this SDK was generated with the named feature.

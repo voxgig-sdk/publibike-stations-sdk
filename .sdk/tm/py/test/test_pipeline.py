@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import PublibikeStationsSDK
-from core.error import PublibikeStationsError
-from core.result import PublibikeStationsResult
-from core.response import PublibikeStationsResponse
-from core.spec import PublibikeStationsSpec
-from feature.base_feature import PublibikeStationsBaseFeature
+from projectname_sdk.core.error import PublibikeStationsError
+from projectname_sdk.core.result import PublibikeStationsResult
+from projectname_sdk.core.response import PublibikeStationsResponse
+from projectname_sdk.core.spec import PublibikeStationsSpec
+from projectname_sdk.feature.base_feature import PublibikeStationsBaseFeature
 
 
 def _client():

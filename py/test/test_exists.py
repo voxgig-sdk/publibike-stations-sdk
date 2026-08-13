@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# PublibikeStations SDK exists test
 
 import pytest
 from publibikestations_sdk import PublibikeStationsSDK

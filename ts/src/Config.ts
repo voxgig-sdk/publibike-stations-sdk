@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'PublibikeStations',
   }
 
 
@@ -119,7 +119,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "sponsor",
+          "name": "sponsors",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 9
@@ -133,7 +133,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "vehicle",
+          "name": "vehicles",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 11
@@ -155,6 +155,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/public/partner/stations",
               "parts": [
@@ -165,13 +166,14 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.stations`"
               },
               "index$": 0
             },
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/public/stations",
               "parts": [
@@ -207,6 +209,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/public/stations/{id}",
               "parts": [

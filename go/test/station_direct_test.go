@@ -36,9 +36,10 @@ func TestStationDirect(t *testing.T) {
 			"params": map[string]any{},
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx and the
-			// list-response shape varies wildly across public APIs. Skip
-			// rather than fail when the call doesn't return a usable list.
+			// Live-mode leniency is a model decision
+			// (main.kit.test.live.strict): synthetic IDs 4xx constantly
+			// against an arbitrary public API, so the default SKIPS here.
+			// A project that owns its test server sets strict and FAILS.
 			if err != nil {
 				t.Skipf("list call failed (likely synthetic IDs against live API): %v", err)
 			}
@@ -127,7 +128,8 @@ func TestStationDirect(t *testing.T) {
 		if setup.live {
 			// Live mode is lenient: synthetic IDs frequently 4xx. Skip
 			// rather than fail when the load endpoint isn't reachable with
-			// the IDs we can construct from setup.idmap.
+			// the IDs we can construct from setup.idmap — unless the model
+			// sets main.kit.test.live.strict.
 			if err != nil {
 				t.Skipf("load call failed (likely synthetic IDs against live API): %v", err)
 			}
@@ -192,11 +194,11 @@ func stationDirectSetup(mockres any) *stationDirectSetupResult {
 	calls := &[]map[string]any{}
 
 	env := envOverride(map[string]any{
-		"PUBLIBIKESTATIONS_TEST_STATION_ENTID": map[string]any{},
-		"PUBLIBIKESTATIONS_TEST_LIVE":    "FALSE",
+		"PUBLIBIKE_STATIONS_TEST_STATION_ENTID": map[string]any{},
+		"PUBLIBIKE_STATIONS_TEST_LIVE":    "FALSE",
 	})
 
-	live := env["PUBLIBIKESTATIONS_TEST_LIVE"] == "TRUE"
+	live := env["PUBLIBIKE_STATIONS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
@@ -204,7 +206,7 @@ func stationDirectSetup(mockres any) *stationDirectSetupResult {
 		client := sdk.NewPublibikeStationsSDK(mergedOpts)
 
 		idmap := map[string]any{}
-		if entidRaw, ok := env["PUBLIBIKESTATIONS_TEST_STATION_ENTID"]; ok {
+		if entidRaw, ok := env["PUBLIBIKE_STATIONS_TEST_STATION_ENTID"]; ok {
 			if entidStr, ok := entidRaw.(string); ok && strings.HasPrefix(entidStr, "{") {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {

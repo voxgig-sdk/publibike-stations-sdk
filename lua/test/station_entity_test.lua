@@ -70,7 +70,7 @@ describe("StationEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set PUBLIBIKESTATIONS_TEST_STATION_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set PUBLIBIKE_STATIONS_TEST_STATION_ENTID JSON to run live")
       return
     end
     local client = setup.client
@@ -97,7 +97,7 @@ describe("StationEntity", function()
     }
     local station_ref01_data_dt0_loaded, err = station_ref01_ent:load(station_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local station_ref01_data_dt0_load_result = helpers.to_map(station_ref01_data_dt0_loaded)
+    local station_ref01_data_dt0_load_result = helpers.to_map(type(station_ref01_data_dt0_loaded) == 'table' and station_ref01_data_dt0_loaded.data_get and station_ref01_data_dt0_loaded:data_get() or station_ref01_data_dt0_loaded)
     assert.is_not_nil(station_ref01_data_dt0_load_result)
     assert.are.equal(station_ref01_data_dt0_load_result["id"], station_ref01_data["id"])
 
@@ -136,22 +136,22 @@ function station_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("PUBLIBIKESTATIONS_TEST_STATION_ENTID")
+  local entid_env_raw = os.getenv("PUBLIBIKE_STATIONS_TEST_STATION_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["PUBLIBIKESTATIONS_TEST_STATION_ENTID"] = idmap,
-    ["PUBLIBIKESTATIONS_TEST_LIVE"] = "FALSE",
-    ["PUBLIBIKESTATIONS_TEST_EXPLAIN"] = "FALSE",
+    ["PUBLIBIKE_STATIONS_TEST_STATION_ENTID"] = idmap,
+    ["PUBLIBIKE_STATIONS_TEST_LIVE"] = "FALSE",
+    ["PUBLIBIKE_STATIONS_TEST_EXPLAIN"] = "FALSE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["PUBLIBIKESTATIONS_TEST_STATION_ENTID"])
+    env["PUBLIBIKE_STATIONS_TEST_STATION_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["PUBLIBIKESTATIONS_TEST_LIVE"] == "TRUE" then
+  if env["PUBLIBIKE_STATIONS_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
       },
@@ -160,13 +160,13 @@ function station_basic_setup(extra)
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["PUBLIBIKESTATIONS_TEST_LIVE"] == "TRUE"
+  local live = env["PUBLIBIKE_STATIONS_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["PUBLIBIKESTATIONS_TEST_EXPLAIN"] == "TRUE",
+    explain = env["PUBLIBIKE_STATIONS_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

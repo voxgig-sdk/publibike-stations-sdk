@@ -107,9 +107,9 @@ fmt.Println(station.GetName()) // "station"
 | `longitude` | `float64` | Yes |  |
 | `name` | `string` | Yes |  |
 | `network` | `map[string]any` | Yes |  |
-| `sponsor` | `[]any` | No |  |
+| `sponsors` | `[]any` | No |  |
 | `state` | `map[string]any` | Yes |  |
-| `vehicle` | `[]any` | No |  |
+| `vehicles` | `[]any` | No |  |
 | `zip` | `string` | No |  |
 
 ### Operations

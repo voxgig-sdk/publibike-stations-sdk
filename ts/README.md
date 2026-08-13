@@ -35,7 +35,9 @@ const client = new PublibikeStationsSDK()
 
 ### 2. List station records
 
-`list()` resolves to an array of Station objects — iterate it directly:
+`list()` resolves to an array of Station ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const stations = await client.Station().list()
@@ -133,7 +135,8 @@ Create a mock client for unit testing — no server required:
 const client = PublibikeStationsSDK.test()
 
 const station = await client.Station().list()
-// station is a bare entity populated with mock response data
+// station is the entity, populated with mock response data
+// — call station.data() for the record itself
 console.log(station)
 ```
 
@@ -308,9 +311,9 @@ The `prepare()` method returns:
 | `longitude` |  |
 | `name` |  |
 | `network` |  |
-| `sponsor` |  |
+| `sponsors` |  |
 | `state` |  |
-| `vehicle` |  |
+| `vehicles` |  |
 | `zip` |  |
 
 Operations: list, load.
@@ -346,9 +349,9 @@ Create an instance: `const station = client.Station()`
 | `longitude` | `number` |  |
 | `name` | `string` |  |
 | `network` | `Record<string, any>` |  |
-| `sponsor` | `any[]` |  |
+| `sponsors` | `any[]` |  |
 | `state` | `Record<string, any>` |  |
-| `vehicle` | `any[]` |  |
+| `vehicles` | `any[]` |  |
 | `zip` | `string` |  |
 
 #### Example: Load

@@ -101,9 +101,9 @@ $station = $client->Station();
 | `longitude` | `float` | Yes |  |
 | `name` | `string` | Yes |  |
 | `network` | `array` | Yes |  |
-| `sponsor` | `array` | No |  |
+| `sponsors` | `array` | No |  |
 | `state` | `array` | Yes |  |
-| `vehicle` | `array` | No |  |
+| `vehicles` | `array` | No |  |
 | `zip` | `string` | No |  |
 
 ### Operations

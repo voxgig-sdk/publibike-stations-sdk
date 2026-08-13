@@ -95,7 +95,7 @@ class PublibikeStationsConfig
             ],
             [
               'active' => true,
-              'name' => 'sponsor',
+              'name' => 'sponsors',
               'req' => false,
               'type' => '`$ARRAY`',
               'index$' => 9,
@@ -109,7 +109,7 @@ class PublibikeStationsConfig
             ],
             [
               'active' => true,
-              'name' => 'vehicle',
+              'name' => 'vehicles',
               'req' => false,
               'type' => '`$ARRAY`',
               'index$' => 11,
@@ -131,6 +131,7 @@ class PublibikeStationsConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/partner/stations',
                   'parts' => [
@@ -141,13 +142,14 @@ class PublibikeStationsConfig
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.stations`',
                   ],
                   'index$' => 0,
                 ],
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/stations',
                   'parts' => [
@@ -183,6 +185,7 @@ class PublibikeStationsConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/stations/{id}',
                   'parts' => [

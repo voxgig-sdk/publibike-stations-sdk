@@ -48,7 +48,7 @@ end
 
 ```ruby
 begin
-  # load returns the bare Station record (raises on error).
+  # load returns the ENTITY — call data_get for the Station record (raises on error).
   station = client.Station.load({ "id" => 1 })
   puts station
 rescue => err
@@ -134,7 +134,8 @@ client = PublibikeStationsSDK.test({
   "entity" => { "station" => { "test01" => { "id" => "test01" } } },
 })
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 station = client.Station.list()
 puts station
 ```
@@ -261,9 +262,9 @@ returns a result `Hash` with these keys:
 | `longitude` |  |
 | `name` |  |
 | `network` |  |
-| `sponsor` |  |
+| `sponsors` |  |
 | `state` |  |
-| `vehicle` |  |
+| `vehicles` |  |
 | `zip` |  |
 
 Operations: List, Load.
@@ -299,15 +300,15 @@ Create an instance: `station = client.Station`
 | `longitude` | `Float` |  |
 | `name` | `String` |  |
 | `network` | `Hash` |  |
-| `sponsor` | `Array` |  |
+| `sponsors` | `Array` |  |
 | `state` | `Hash` |  |
-| `vehicle` | `Array` |  |
+| `vehicles` | `Array` |  |
 | `zip` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Station record (raises on error).
+# load returns the ENTITY — call data_get for the Station record (raises on error).
 station = client.Station.load({ "id" => 1 })
 ```
 

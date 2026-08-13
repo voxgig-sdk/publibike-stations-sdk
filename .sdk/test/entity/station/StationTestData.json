@@ -11,9 +11,9 @@
         "longitude": 136,
         "name": "s89",
         "network": {},
-        "sponsor": [],
+        "sponsors": [],
         "state": {},
-        "vehicle": [],
+        "vehicles": [],
         "zip": "s8e"
       },
       "STATION01": {
@@ -26,9 +26,9 @@
         "longitude": 266,
         "name": "s10b",
         "network": {},
-        "sponsor": [],
+        "sponsors": [],
         "state": {},
-        "vehicle": [],
+        "vehicles": [],
         "zip": "s110"
       },
       "STATION02": {
@@ -41,9 +41,9 @@
         "longitude": 396,
         "name": "s18d",
         "network": {},
-        "sponsor": [],
+        "sponsors": [],
         "state": {},
-        "vehicle": [],
+        "vehicles": [],
         "zip": "s192"
       }
     }
@@ -59,9 +59,9 @@
         "longitude": 526,
         "name": "s20f",
         "network": {},
-        "sponsor": [],
+        "sponsors": [],
         "state": {},
-        "vehicle": [],
+        "vehicles": [],
         "zip": "s214"
       }
     }

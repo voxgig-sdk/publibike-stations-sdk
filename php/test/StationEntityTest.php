@@ -72,7 +72,7 @@ class StationEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set PUBLIBIKESTATIONS_TEST_STATION_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set PUBLIBIKE_STATIONS_TEST_STATION_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -97,7 +97,7 @@ class StationEntityTest extends TestCase
             "id" => $station_ref01_data["id"],
         ];
         $station_ref01_data_dt0_loaded = $station_ref01_ent->load($station_ref01_match_dt0, null);
-        $station_ref01_data_dt0_load_result = Helpers::to_map($station_ref01_data_dt0_loaded);
+        $station_ref01_data_dt0_load_result = Helpers::to_map(is_object($station_ref01_data_dt0_loaded) && method_exists($station_ref01_data_dt0_loaded, 'data_get') ? $station_ref01_data_dt0_loaded->data_get() : $station_ref01_data_dt0_loaded);
         $this->assertNotNull($station_ref01_data_dt0_load_result);
         $this->assertEquals($station_ref01_data_dt0_load_result["id"], $station_ref01_data["id"]);
 
@@ -126,22 +126,22 @@ function station_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("PUBLIBIKESTATIONS_TEST_STATION_ENTID");
+    $entid_env_raw = getenv("PUBLIBIKE_STATIONS_TEST_STATION_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "PUBLIBIKESTATIONS_TEST_STATION_ENTID" => $idmap,
-        "PUBLIBIKESTATIONS_TEST_LIVE" => "FALSE",
-        "PUBLIBIKESTATIONS_TEST_EXPLAIN" => "FALSE",
+        "PUBLIBIKE_STATIONS_TEST_STATION_ENTID" => $idmap,
+        "PUBLIBIKE_STATIONS_TEST_LIVE" => "FALSE",
+        "PUBLIBIKE_STATIONS_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["PUBLIBIKESTATIONS_TEST_STATION_ENTID"]);
+        $env["PUBLIBIKE_STATIONS_TEST_STATION_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["PUBLIBIKESTATIONS_TEST_LIVE"] === "TRUE") {
+    if ($env["PUBLIBIKE_STATIONS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -150,13 +150,13 @@ function station_basic_setup($extra)
         $client = new PublibikeStationsSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["PUBLIBIKESTATIONS_TEST_LIVE"] === "TRUE";
+    $live = $env["PUBLIBIKE_STATIONS_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["PUBLIBIKESTATIONS_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["PUBLIBIKE_STATIONS_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

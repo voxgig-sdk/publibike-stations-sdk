@@ -90,7 +90,7 @@ module PublibikeStationsConfig
             },
             {
               "active" => true,
-              "name" => "sponsor",
+              "name" => "sponsors",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 9,
@@ -104,7 +104,7 @@ module PublibikeStationsConfig
             },
             {
               "active" => true,
-              "name" => "vehicle",
+              "name" => "vehicles",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 11,
@@ -126,6 +126,7 @@ module PublibikeStationsConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/partner/stations",
                   "parts" => [
@@ -136,13 +137,14 @@ module PublibikeStationsConfig
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.stations`",
                   },
                   "index$" => 0,
                 },
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/stations",
                   "parts" => [
@@ -178,6 +180,7 @@ module PublibikeStationsConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/stations/{id}",
                   "parts" => [

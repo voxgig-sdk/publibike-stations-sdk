@@ -37,13 +37,13 @@
 # @!attribute [rw] network
 #   @return [Hash]
 #
-# @!attribute [rw] sponsor
+# @!attribute [rw] sponsors
 #   @return [Array, nil]
 #
 # @!attribute [rw] state
 #   @return [Hash]
 #
-# @!attribute [rw] vehicle
+# @!attribute [rw] vehicles
 #   @return [Array, nil]
 #
 # @!attribute [rw] zip
@@ -58,9 +58,9 @@ Station = Struct.new(
   :longitude,
   :name,
   :network,
-  :sponsor,
+  :sponsors,
   :state,
-  :vehicle,
+  :vehicles,
   :zip,
   keyword_init: true
 )
@@ -103,13 +103,13 @@ StationLoadMatch = Struct.new(
 # @!attribute [rw] network
 #   @return [Hash, nil]
 #
-# @!attribute [rw] sponsor
+# @!attribute [rw] sponsors
 #   @return [Array, nil]
 #
 # @!attribute [rw] state
 #   @return [Hash, nil]
 #
-# @!attribute [rw] vehicle
+# @!attribute [rw] vehicles
 #   @return [Array, nil]
 #
 # @!attribute [rw] zip
@@ -124,9 +124,9 @@ StationListMatch = Struct.new(
   :longitude,
   :name,
   :network,
-  :sponsor,
+  :sponsors,
   :state,
-  :vehicle,
+  :vehicles,
   :zip,
   keyword_init: true
 )

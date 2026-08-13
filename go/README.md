@@ -278,9 +278,9 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"longitude"` |  |
 | `"name"` |  |
 | `"network"` |  |
-| `"sponsor"` |  |
+| `"sponsors"` |  |
 | `"state"` |  |
-| `"vehicle"` |  |
+| `"vehicles"` |  |
 | `"zip"` |  |
 
 Operations: List, Load.
@@ -316,9 +316,9 @@ Create an instance: `station := client.Station(nil)`
 | `longitude` | `float64` |  |
 | `name` | `string` |  |
 | `network` | `map[string]any` |  |
-| `sponsor` | `[]any` |  |
+| `sponsors` | `[]any` |  |
 | `state` | `map[string]any` |  |
-| `vehicle` | `[]any` |  |
+| `vehicles` | `[]any` |  |
 | `zip` | `string` |  |
 
 #### Example: Load

@@ -51,7 +51,7 @@ main: kit: entity: station: {
       type: "`$OBJECT`"
     }
     {
-      name: "sponsor"
+      name: "sponsors"
       req: false
       type: "`$ARRAY`"
     }
@@ -61,7 +61,7 @@ main: kit: entity: station: {
       type: "`$OBJECT`"
     }
     {
-      name: "vehicle"
+      name: "vehicles"
       req: false
       type: "`$ARRAY`"
     }
@@ -92,7 +92,7 @@ main: kit: entity: station: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.stations`"
           }
         }
         {

@@ -15,9 +15,9 @@ export interface Station {
   longitude: number
   name: string
   network: Record<string, any>
-  sponsor?: any[]
+  sponsors?: any[]
   state: Record<string, any>
-  vehicle?: any[]
+  vehicles?: any[]
   zip?: string
 }
 
@@ -35,9 +35,9 @@ export interface StationListMatch {
   longitude?: number
   name?: string
   network?: Record<string, any>
-  sponsor?: any[]
+  sponsors?: any[]
   state?: Record<string, any>
-  vehicle?: any[]
+  vehicles?: any[]
   zip?: string
 }
 

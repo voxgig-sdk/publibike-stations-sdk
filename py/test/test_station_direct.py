@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from publibikestations_sdk.utility.voxgig_struct import voxgig_struct as vs
 from publibikestations_sdk import PublibikeStationsSDK
-from core import helpers
+from publibikestations_sdk.core import helpers
 from test import runner
 
 
@@ -105,11 +105,11 @@ def _station_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "PUBLIBIKESTATIONS_TEST_STATION_ENTID": {},
-        "PUBLIBIKESTATIONS_TEST_LIVE": "FALSE",
+        "PUBLIBIKE_STATIONS_TEST_STATION_ENTID": {},
+        "PUBLIBIKE_STATIONS_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("PUBLIBIKESTATIONS_TEST_LIVE") == "TRUE"
+    live = env.get("PUBLIBIKE_STATIONS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = PublibikeStationsSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = PublibikeStationsSDK.test({
+  entity: {
+    station: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const stations = await client.Station().list()
-// stations is an array of bare Station records populated with mock data
+// stations is an array of Station entities, populated with mock data
+// — call stations[0].data() for the record itself
 console.log(stations)
 ```
 
@@ -110,7 +119,7 @@ import { PublibikeStationsSDK } from '@voxgig-sdk/publibike-stations'
 
 const client = new PublibikeStationsSDK()
 
-// List all stations (returns Station[])
+// List all stations (returns StationEntity[] — .data() for the record)
 const stations = await client.Station().list()
 for (const station of stations) {
   console.log(station)
@@ -191,7 +200,7 @@ $client = new PublibikeStationsSDK();
 $stations = $client->Station()->list();
 print_r($stations);
 
-// Load a specific station (returns the bare record; throws on error)
+// Load a specific station (returns the ENTITY; call data_get() for the record; throws on error)
 $station = $client->Station()->load(["id" => 1]);
 print_r($station);
 ```
@@ -222,7 +231,7 @@ client = PublibikeStationsSDK.new
 stations = client.Station.list
 puts stations
 
-# Load a specific station (returns the bare record; raises on error)
+# Load a specific station (returns the ENTITY; call data_get for the record)
 station = client.Station.load({ "id" => 1 })
 puts station
 ```
@@ -359,6 +368,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://www.publibike.ch](https://www.publibike.ch)
 

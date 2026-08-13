@@ -43,8 +43,8 @@ class PublibikeStationsTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('PUBLIBIKESTATIONS_TEST_LIVE');
-        $override = self::getenv('PUBLIBIKESTATIONS_TEST_OVERRIDE');
+        $live = self::getenv('PUBLIBIKE_STATIONS_TEST_LIVE');
+        $override = self::getenv('PUBLIBIKE_STATIONS_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class PublibikeStationsTestRunner
             }
         }
 
-        $explain = self::getenv('PUBLIBIKESTATIONS_TEST_EXPLAIN');
+        $explain = self::getenv('PUBLIBIKE_STATIONS_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['PUBLIBIKESTATIONS_TEST_EXPLAIN'] = $explain;
+            $m['PUBLIBIKE_STATIONS_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

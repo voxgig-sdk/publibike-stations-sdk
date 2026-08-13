@@ -24,9 +24,9 @@ class Station
     public float $longitude;
     public string $name;
     public array $network;
-    public ?array $sponsor = null;
+    public ?array $sponsors = null;
     public array $state;
-    public ?array $vehicle = null;
+    public ?array $vehicles = null;
     public ?string $zip = null;
 }
 
@@ -48,9 +48,9 @@ class StationListMatch
     public ?float $longitude = null;
     public ?string $name = null;
     public ?array $network = null;
-    public ?array $sponsor = null;
+    public ?array $sponsors = null;
     public ?array $state = null;
-    public ?array $vehicle = null;
+    public ?array $vehicles = null;
     public ?string $zip = null;
 }
 

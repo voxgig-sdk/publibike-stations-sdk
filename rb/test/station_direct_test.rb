@@ -114,11 +114,11 @@ def station_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "PUBLIBIKESTATIONS_TEST_STATION_ENTID" => {},
-    "PUBLIBIKESTATIONS_TEST_LIVE" => "FALSE",
+    "PUBLIBIKE_STATIONS_TEST_STATION_ENTID" => {},
+    "PUBLIBIKE_STATIONS_TEST_LIVE" => "FALSE",
   })
 
-  live = env["PUBLIBIKESTATIONS_TEST_LIVE"] == "TRUE"
+  live = env["PUBLIBIKE_STATIONS_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {

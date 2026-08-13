@@ -102,9 +102,9 @@ station = client.Station
 | `longitude` | `Float` | Yes |  |
 | `name` | `String` | Yes |  |
 | `network` | `Hash` | Yes |  |
-| `sponsor` | `Array` | No |  |
+| `sponsors` | `Array` | No |  |
 | `state` | `Hash` | Yes |  |
-| `vehicle` | `Array` | No |  |
+| `vehicles` | `Array` | No |  |
 | `zip` | `String` | No |  |
 
 ### Operations
