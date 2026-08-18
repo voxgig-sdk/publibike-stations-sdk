@@ -15,7 +15,7 @@ require_relative "../PublibikeStations_sdk"
 module PublibikeStationsFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = PublibikeStationsConfig.make_config["feature"]
+    f = PublibikeStationsConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 

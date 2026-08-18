@@ -28,7 +28,7 @@ class PublibikeStationsSDK
     utility = PublibikeStationsUtility.new
     @_utility = utility
 
-    config = PublibikeStationsConfig.make_config
+    config = PublibikeStationsConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

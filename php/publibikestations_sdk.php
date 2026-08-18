@@ -40,7 +40,7 @@ class PublibikeStationsSDK
         $utility = new PublibikeStationsUtility();
         $this->_utility = $utility;
 
-        $config = PublibikeStationsConfig::make_config();
+        $config = PublibikeStationsConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
