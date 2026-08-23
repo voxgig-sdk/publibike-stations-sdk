@@ -6,7 +6,7 @@ The Golang SDK for the PublibikeStations API — an entity-oriented client using
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Station(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -269,19 +269,19 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"address"` |  |
-| `"capacity"` |  |
-| `"city"` |  |
-| `"id"` |  |
-| `"is_virtual_station"` |  |
-| `"latitude"` |  |
-| `"longitude"` |  |
-| `"name"` |  |
-| `"network"` |  |
-| `"sponsors"` |  |
-| `"state"` |  |
-| `"vehicles"` |  |
-| `"zip"` |  |
+| `"address"` | Station address without the city |
+| `"capacity"` | The maximum number of bikes a station is able to accommodate. |
+| `"city"` | City of the station |
+| `"id"` | Technical station id |
+| `"is_virtual_station"` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `"latitude"` | Latitude of the station |
+| `"longitude"` | Longitude of the station |
+| `"name"` | Public name of the station |
+| `"network"` | Representation of a network |
+| `"sponsors"` | An array of sponsors of this station |
+| `"state"` | Representation of a state. |
+| `"vehicles"` | All vehicles that are currently available at this station |
+| `"zip"` | Zip code of the station |
 
 Operations: List, Load.
 
@@ -307,19 +307,19 @@ Create an instance: `station := client.Station(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
-| `capacity` | `int` |  |
-| `city` | `string` |  |
-| `id` | `int` |  |
-| `is_virtual_station` | `bool` |  |
-| `latitude` | `float64` |  |
-| `longitude` | `float64` |  |
-| `name` | `string` |  |
-| `network` | `map[string]any` |  |
-| `sponsors` | `[]any` |  |
-| `state` | `map[string]any` |  |
-| `vehicles` | `[]any` |  |
-| `zip` | `string` |  |
+| `address` | `string` | Station address without the city |
+| `capacity` | `int` | The maximum number of bikes a station is able to accommodate. |
+| `city` | `string` | City of the station |
+| `id` | `int` | Technical station id |
+| `is_virtual_station` | `bool` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `latitude` | `float64` | Latitude of the station |
+| `longitude` | `float64` | Longitude of the station |
+| `name` | `string` | Public name of the station |
+| `network` | `map[string]any` | Representation of a network |
+| `sponsors` | `[]any` | An array of sponsors of this station |
+| `state` | `map[string]any` | Representation of a state. |
+| `vehicles` | `[]any` | All vehicles that are currently available at this station |
+| `zip` | `string` | Zip code of the station |
 
 #### Example: Load
 

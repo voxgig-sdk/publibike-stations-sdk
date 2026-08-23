@@ -256,19 +256,19 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `capacity` |  |
-| `city` |  |
-| `id` |  |
-| `is_virtual_station` |  |
-| `latitude` |  |
-| `longitude` |  |
-| `name` |  |
-| `network` |  |
-| `sponsors` |  |
-| `state` |  |
-| `vehicles` |  |
-| `zip` |  |
+| `address` | Station address without the city |
+| `capacity` | The maximum number of bikes a station is able to accommodate. |
+| `city` | City of the station |
+| `id` | Technical station id |
+| `is_virtual_station` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `latitude` | Latitude of the station |
+| `longitude` | Longitude of the station |
+| `name` | Public name of the station |
+| `network` | Representation of a network |
+| `sponsors` | An array of sponsors of this station |
+| `state` | Representation of a state. |
+| `vehicles` | All vehicles that are currently available at this station |
+| `zip` | Zip code of the station |
 
 Operations: List, Load.
 
@@ -294,19 +294,19 @@ Create an instance: `station = client.Station()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `str` |  |
-| `capacity` | `int` |  |
-| `city` | `str` |  |
-| `id` | `int` |  |
-| `is_virtual_station` | `bool` |  |
-| `latitude` | `float` |  |
-| `longitude` | `float` |  |
-| `name` | `str` |  |
-| `network` | `dict` |  |
-| `sponsors` | `list` |  |
-| `state` | `dict` |  |
-| `vehicles` | `list` |  |
-| `zip` | `str` |  |
+| `address` | `str` | Station address without the city |
+| `capacity` | `int` | The maximum number of bikes a station is able to accommodate. |
+| `city` | `str` | City of the station |
+| `id` | `int` | Technical station id |
+| `is_virtual_station` | `bool` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `latitude` | `float` | Latitude of the station |
+| `longitude` | `float` | Longitude of the station |
+| `name` | `str` | Public name of the station |
+| `network` | `dict` | Representation of a network |
+| `sponsors` | `list` | An array of sponsors of this station |
+| `state` | `dict` | Representation of a state. |
+| `vehicles` | `list` | All vehicles that are currently available at this station |
+| `zip` | `str` | Zip code of the station |
 
 #### Example: Load
 

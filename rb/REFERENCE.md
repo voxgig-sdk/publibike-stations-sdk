@@ -93,19 +93,19 @@ station = client.Station
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `String` | No |  |
-| `capacity` | `Integer` | No |  |
-| `city` | `String` | No |  |
-| `id` | `Integer` | Yes |  |
-| `is_virtual_station` | `Boolean` | No |  |
-| `latitude` | `Float` | Yes |  |
-| `longitude` | `Float` | Yes |  |
-| `name` | `String` | Yes |  |
-| `network` | `Hash` | Yes |  |
-| `sponsors` | `Array` | No |  |
-| `state` | `Hash` | Yes |  |
-| `vehicles` | `Array` | No |  |
-| `zip` | `String` | No |  |
+| `address` | `String` | No | Station address without the city |
+| `capacity` | `Integer` | No | The maximum number of bikes a station is able to accommodate. |
+| `city` | `String` | No | City of the station |
+| `id` | `Integer` | Yes | Technical station id |
+| `is_virtual_station` | `Boolean` | No | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `latitude` | `Float` | Yes | Latitude of the station |
+| `longitude` | `Float` | Yes | Longitude of the station |
+| `name` | `String` | Yes | Public name of the station |
+| `network` | `Hash` | Yes | Representation of a network |
+| `sponsors` | `Array` | No | An array of sponsors of this station |
+| `state` | `Hash` | Yes | Representation of a state. |
+| `vehicles` | `Array` | No | All vehicles that are currently available at this station |
+| `zip` | `String` | No | Zip code of the station |
 
 ### Operations
 

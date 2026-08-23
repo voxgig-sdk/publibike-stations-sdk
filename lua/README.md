@@ -241,19 +241,19 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `capacity` |  |
-| `city` |  |
-| `id` |  |
-| `is_virtual_station` |  |
-| `latitude` |  |
-| `longitude` |  |
-| `name` |  |
-| `network` |  |
-| `sponsors` |  |
-| `state` |  |
-| `vehicles` |  |
-| `zip` |  |
+| `address` | Station address without the city |
+| `capacity` | The maximum number of bikes a station is able to accommodate. |
+| `city` | City of the station |
+| `id` | Technical station id |
+| `is_virtual_station` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `latitude` | Latitude of the station |
+| `longitude` | Longitude of the station |
+| `name` | Public name of the station |
+| `network` | Representation of a network |
+| `sponsors` | An array of sponsors of this station |
+| `state` | Representation of a state. |
+| `vehicles` | All vehicles that are currently available at this station |
+| `zip` | Zip code of the station |
 
 Operations: List, Load.
 
@@ -279,19 +279,19 @@ Create an instance: `local station = client:Station(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
-| `capacity` | `number` |  |
-| `city` | `string` |  |
-| `id` | `number` |  |
-| `is_virtual_station` | `boolean` |  |
-| `latitude` | `number` |  |
-| `longitude` | `number` |  |
-| `name` | `string` |  |
-| `network` | `table` |  |
-| `sponsors` | `table` |  |
-| `state` | `table` |  |
-| `vehicles` | `table` |  |
-| `zip` | `string` |  |
+| `address` | `string` | Station address without the city |
+| `capacity` | `number` | The maximum number of bikes a station is able to accommodate. |
+| `city` | `string` | City of the station |
+| `id` | `number` | Technical station id |
+| `is_virtual_station` | `boolean` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `latitude` | `number` | Latitude of the station |
+| `longitude` | `number` | Longitude of the station |
+| `name` | `string` | Public name of the station |
+| `network` | `table` | Representation of a network |
+| `sponsors` | `table` | An array of sponsors of this station |
+| `state` | `table` | Representation of a state. |
+| `vehicles` | `table` | All vehicles that are currently available at this station |
+| `zip` | `string` | Zip code of the station |
 
 #### Example: Load
 

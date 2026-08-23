@@ -92,19 +92,19 @@ $station = $client->Station();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | No |  |
-| `capacity` | `int` | No |  |
-| `city` | `string` | No |  |
-| `id` | `int` | Yes |  |
-| `is_virtual_station` | `bool` | No |  |
-| `latitude` | `float` | Yes |  |
-| `longitude` | `float` | Yes |  |
-| `name` | `string` | Yes |  |
-| `network` | `array` | Yes |  |
-| `sponsors` | `array` | No |  |
-| `state` | `array` | Yes |  |
-| `vehicles` | `array` | No |  |
-| `zip` | `string` | No |  |
+| `address` | `string` | No | Station address without the city |
+| `capacity` | `int` | No | The maximum number of bikes a station is able to accommodate. |
+| `city` | `string` | No | City of the station |
+| `id` | `int` | Yes | Technical station id |
+| `is_virtual_station` | `bool` | No | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `latitude` | `float` | Yes | Latitude of the station |
+| `longitude` | `float` | Yes | Longitude of the station |
+| `name` | `string` | Yes | Public name of the station |
+| `network` | `array` | Yes | Representation of a network |
+| `sponsors` | `array` | No | An array of sponsors of this station |
+| `state` | `array` | Yes | Representation of a state. |
+| `vehicles` | `array` | No | All vehicles that are currently available at this station |
+| `zip` | `string` | No | Zip code of the station |
 
 ### Operations
 

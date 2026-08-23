@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "PublibikeStations",
+			"slug": "publibike-stations",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -33,60 +36,73 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "address",
+						"short": "Station address without the city",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "capacity",
+						"short": "The maximum number of bikes a station is able to accommodate.",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "city",
+						"short": "City of the station",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
 						"req": true,
+						"short": "Technical station id",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "is_virtual_station",
+						"short": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
 						"name": "latitude",
 						"req": true,
+						"short": "Latitude of the station",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "longitude",
 						"req": true,
+						"short": "Longitude of the station",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "name",
 						"req": true,
+						"short": "Public name of the station",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "network",
 						"req": true,
+						"short": "Representation of a network",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "sponsors",
+						"short": "An array of sponsors of this station",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "state",
 						"req": true,
+						"short": "Representation of a state.",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "vehicles",
+						"short": "All vehicles that are currently available at this station",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "zip",
+						"short": "Zip code of the station",
 						"type": "`$STRING`",
 					},
 				},

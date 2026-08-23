@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -302,19 +302,19 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `capacity` |  |
-| `city` |  |
-| `id` |  |
-| `is_virtual_station` |  |
-| `latitude` |  |
-| `longitude` |  |
-| `name` |  |
-| `network` |  |
-| `sponsors` |  |
-| `state` |  |
-| `vehicles` |  |
-| `zip` |  |
+| `address` | Station address without the city |
+| `capacity` | The maximum number of bikes a station is able to accommodate. |
+| `city` | City of the station |
+| `id` | Technical station id |
+| `is_virtual_station` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `latitude` | Latitude of the station |
+| `longitude` | Longitude of the station |
+| `name` | Public name of the station |
+| `network` | Representation of a network |
+| `sponsors` | An array of sponsors of this station |
+| `state` | Representation of a state. |
+| `vehicles` | All vehicles that are currently available at this station |
+| `zip` | Zip code of the station |
 
 Operations: list, load.
 
@@ -340,19 +340,19 @@ Create an instance: `const station = client.Station()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
-| `capacity` | `number` |  |
-| `city` | `string` |  |
-| `id` | `number` |  |
-| `is_virtual_station` | `boolean` |  |
-| `latitude` | `number` |  |
-| `longitude` | `number` |  |
-| `name` | `string` |  |
-| `network` | `Record<string, any>` |  |
-| `sponsors` | `any[]` |  |
-| `state` | `Record<string, any>` |  |
-| `vehicles` | `any[]` |  |
-| `zip` | `string` |  |
+| `address` | `string` | Station address without the city |
+| `capacity` | `number` | The maximum number of bikes a station is able to accommodate. |
+| `city` | `string` | City of the station |
+| `id` | `number` | Technical station id |
+| `is_virtual_station` | `boolean` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `latitude` | `number` | Latitude of the station |
+| `longitude` | `number` | Longitude of the station |
+| `name` | `string` | Public name of the station |
+| `network` | `Record<string, any>` | Representation of a network |
+| `sponsors` | `any[]` | An array of sponsors of this station |
+| `state` | `Record<string, any>` | Representation of a state. |
+| `vehicles` | `any[]` | All vehicles that are currently available at this station |
+| `zip` | `string` | Zip code of the station |
 
 #### Example: Load
 
