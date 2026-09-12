@@ -63,6 +63,7 @@ class PublibikeStationsConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'capacity',
               'short' => 'The maximum number of bikes a station is able to accommodate.',
               'type' => '`$INTEGER`',
@@ -73,6 +74,7 @@ class PublibikeStationsConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'id',
               'req' => true,
               'short' => 'Technical station id',
@@ -84,12 +86,14 @@ class PublibikeStationsConfig
               'type' => '`$BOOLEAN`',
             ],
             [
+              'format' => 'double',
               'name' => 'latitude',
               'req' => true,
               'short' => 'Latitude of the station',
               'type' => '`$NUMBER`',
             ],
             [
+              'format' => 'double',
               'name' => 'longitude',
               'req' => true,
               'short' => 'Longitude of the station',
@@ -129,6 +133,10 @@ class PublibikeStationsConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'station',
           'op' => [
             'list' => [
@@ -140,15 +148,26 @@ class PublibikeStationsConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/partner/stations',
-                  'parts' => [
-                    'public',
-                    'partner',
-                    'stations',
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'partner',
+                    ],
+                    [
+                      'lit' => 'stations',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.stations`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'partner',
+                    'stations',
                   ],
                 ],
                 [
@@ -156,14 +175,22 @@ class PublibikeStationsConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/stations',
-                  'parts' => [
-                    'public',
-                    'stations',
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'stations',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'stations',
                   ],
                 ],
               ],
@@ -187,10 +214,16 @@ class PublibikeStationsConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/stations/{id}',
-                  'parts' => [
-                    'public',
-                    'stations',
-                    '{id}',
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'stations',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -200,6 +233,11 @@ class PublibikeStationsConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'stations',
+                    '{id}',
                   ],
                 ],
               ],

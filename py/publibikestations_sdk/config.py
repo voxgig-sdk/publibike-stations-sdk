@@ -1,6 +1,14 @@
 # PublibikeStations SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -58,6 +66,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "int32",
             "name": "capacity",
             "short": "The maximum number of bikes a station is able to accommodate.",
             "type": "`$INTEGER`",
@@ -68,6 +77,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "int32",
             "name": "id",
             "req": True,
             "short": "Technical station id",
@@ -79,12 +89,14 @@ def make_config():
             "type": "`$BOOLEAN`",
           },
           {
+            "format": "double",
             "name": "latitude",
             "req": True,
             "short": "Latitude of the station",
             "type": "`$NUMBER`",
           },
           {
+            "format": "double",
             "name": "longitude",
             "req": True,
             "short": "Longitude of the station",
@@ -124,6 +136,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "station",
         "op": {
           "list": {
@@ -135,31 +151,50 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/partner/stations",
-                "parts": [
-                  "public",
-                  "partner",
-                  "stations",
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "partner",
+                  },
+                  {
+                    "lit": "stations",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.stations`",
                 },
+                "parts": [
+                  "public",
+                  "partner",
+                  "stations",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/stations",
-                "parts": [
-                  "public",
-                  "stations",
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "stations",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "stations",
+                ],
               },
             ],
           },
@@ -182,10 +217,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/stations/{id}",
-                "parts": [
-                  "public",
-                  "stations",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "stations",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -196,6 +237,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "stations",
+                  "{id}",
+                ],
               },
             ],
           },
