@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { PublibikeStationsSDK } from '@voxgig-sdk/publibike-stations'
+import { PublibikeStationsSDK } from '@voxgig-sdk/publibike-stations-sdk'
 
 const client = new PublibikeStationsSDK()
 ```
@@ -449,7 +449,7 @@ publibike-stations/
 Import the SDK from the package root:
 
 ```ts
-import { PublibikeStationsSDK } from '@voxgig-sdk/publibike-stations'
+import { PublibikeStationsSDK } from '@voxgig-sdk/publibike-stations-sdk'
 ```
 
 ### Entity state

@@ -105,7 +105,7 @@ local results, err = client:Station():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/releases) |
+| TypeScript | `@voxgig-sdk/publibike-stations-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/releases) |
 | Python | `voxgig-sdk-publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/releases) |
 | PHP | `voxgig-sdk/publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/publibike-stations-sdk/go` | `go get github.com/voxgig-sdk/publibike-stations-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Station():list()
 ### TypeScript
 
 ```ts
-import { PublibikeStationsSDK } from '@voxgig-sdk/publibike-stations'
+import { PublibikeStationsSDK } from '@voxgig-sdk/publibike-stations-sdk'
 
 const client = new PublibikeStationsSDK()
 
