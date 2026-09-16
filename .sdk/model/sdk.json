@@ -24,7 +24,71 @@
         "repr": "auto"
       },
       "contributor": {},
-      "docs": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "station": {
           "active": true,
@@ -141,6 +205,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "GET /public/partner/stations",
+                    "json": "{\"operationId\":\"getAllStationsForPartners\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"Container for stations and their vehicles.\",\"properties\":{\"stations\":{\"items\":{\"description\":\"Overview of a single station and it's vehicles\",\"properties\":{\"address\":{\"description\":\"Station address without the city\",\"type\":\"string\"},\"capacity\":{\"description\":\"The maximum number of bikes a station is able to accommodate. This is not a hard limit but can be used for displaying purposes.\",\"format\":\"int32\",\"type\":\"integer\"},\"city\":{\"description\":\"City of the station\",\"type\":\"string\"},\"id\":{\"description\":\"Technical station id\",\"format\":\"int32\",\"type\":\"integer\"},\"is_virtual_station\":{\"description\":\"Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastructure (docks) but is defined e.g. via geolocation\",\"type\":\"boolean\"},\"latitude\":{\"description\":\"Latitude of the station\",\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"description\":\"Longitude of the station\",\"format\":\"double\",\"type\":\"number\"},\"name\":{\"description\":\"Public name of the station\",\"type\":\"string\"},\"network\":{\"description\":\"Representation of a network\",\"properties\":{\"background_img\":{\"description\":\"Background image for app (language specific)\",\"type\":\"string\"},\"id\":{\"description\":\"Technical station id\",\"format\":\"int32\",\"type\":\"integer\"},\"logo_img\":{\"description\":\"Logo of the network (language specific)\",\"type\":\"string\"},\"name\":{\"description\":\"Translated network name\",\"type\":\"string\"},\"sponsors\":{\"description\":\"An array of sponsors for this network\",\"items\":{\"description\":\"Represents a sponsor item containing an image and link (translated).\",\"properties\":{\"id\":{\"description\":\"Technical sponsor id.\",\"format\":\"int32\",\"type\":\"integer\"},\"image\":{\"description\":\"Logo of the sponsor.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the sponsor.\",\"type\":\"string\"},\"url\":{\"description\":\"URL to sponsor website.\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"id\",\"name\"],\"type\":\"object\"},\"sponsors\":{\"description\":\"An array of sponsors of this station\",\"items\":{\"description\":\"Represents a sponsor item containing an image and link (translated).\",\"properties\":{\"id\":{\"description\":\"Technical sponsor id.\",\"format\":\"int32\",\"type\":\"integer\"},\"image\":{\"description\":\"Logo of the sponsor.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the sponsor.\",\"type\":\"string\"},\"url\":{\"description\":\"URL to sponsor website.\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"state\":{\"description\":\"Representation of a state.\",\"properties\":{\"id\":{\"description\":\"Technical state id\",\"format\":\"int32\",\"type\":\"integer\"},\"name\":{\"description\":\"Translated human-readable state name\",\"type\":\"string\"}},\"required\":[\"id\",\"name\"],\"type\":\"object\"},\"vehicles\":{\"description\":\"All vehicles that are currently available at this station\",\"items\":{\"description\":\"Representation of a vehicle\",\"properties\":{\"ebike_battery_level\":{\"description\":\"E-Bike battery level in percent. The e-bike battery level is between 0 and 100. If the value is missing it is either not an e-bike or the battery level is unknown.\",\"format\":\"double\",\"maximum\":100,\"minimum\":0,\"type\":\"number\"},\"id\":{\"description\":\"Technical vehicle id\",\"format\":\"int32\",\"type\":\"integer\"},\"name\":{\"description\":\"Vehicle number visible to the user\",\"type\":\"string\"},\"type\":{\"description\":\"Representation of a type.\",\"properties\":{\"id\":{\"description\":\"Technical type id\",\"format\":\"int32\",\"type\":\"integer\"},\"name\":{\"description\":\"Translated human-readable type name\",\"type\":\"string\"}},\"required\":[\"id\",\"name\"],\"type\":\"object\"}},\"required\":[\"id\",\"name\",\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"zip\":{\"description\":\"Zip code of the station\",\"type\":\"string\"}},\"required\":[\"id\",\"latitude\",\"longitude\",\"state\",\"name\"],\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"stations\"],\"type\":\"object\"}}},\"description\":\"Information of all the stations\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/partner/stations",
@@ -164,6 +234,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "GET /public/stations",
+                    "json": "{\"operationId\":\"getAllStations\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"description\":\"Overview of a station to be displayed on map\",\"properties\":{\"id\":{\"description\":\"Technical station id\",\"format\":\"int32\",\"type\":\"integer\"},\"latitude\":{\"description\":\"Latitude of the station\",\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"description\":\"Longitude of the station\",\"format\":\"double\",\"type\":\"number\"},\"state\":{\"description\":\"Representation of a state.\",\"properties\":{\"id\":{\"description\":\"Technical state id\",\"format\":\"int32\",\"type\":\"integer\"},\"name\":{\"description\":\"Translated human-readable state name\",\"type\":\"string\"}},\"required\":[\"id\",\"name\"],\"type\":\"object\"}},\"required\":[\"id\",\"latitude\",\"longitude\",\"state\"],\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"An array of stations\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/stations",
@@ -201,6 +277,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "GET /public/stations/{id}",
+                    "json": "{\"operationId\":\"getStationById\",\"parameters\":[{\"description\":\"The station id\",\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"format\":\"int32\",\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"description\":\"Station with current available vehicles. The id of the state is an enumeration, e.g. {1: active, 2: inactive, ...}\",\"properties\":{\"address\":{\"description\":\"Station address without the city\",\"type\":\"string\"},\"city\":{\"description\":\"City of the station\",\"type\":\"string\"},\"id\":{\"description\":\"Technical station id\",\"format\":\"int32\",\"type\":\"integer\"},\"latitude\":{\"description\":\"Latitude of the station\",\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"description\":\"Longitude of the station\",\"format\":\"double\",\"type\":\"number\"},\"name\":{\"description\":\"Public name of the station\",\"type\":\"string\"},\"network\":{\"description\":\"Representation of a network\",\"properties\":{\"background_img\":{\"description\":\"Background image for app (language specific)\",\"type\":\"string\"},\"id\":{\"description\":\"Technical station id\",\"format\":\"int32\",\"type\":\"integer\"},\"logo_img\":{\"description\":\"Logo of the network (language specific)\",\"type\":\"string\"},\"name\":{\"description\":\"Translated network name\",\"type\":\"string\"},\"sponsors\":{\"description\":\"An array of sponsors for this network\",\"items\":{\"description\":\"Represents a sponsor item containing an image and link (translated).\",\"properties\":{\"id\":{\"description\":\"Technical sponsor id.\",\"format\":\"int32\",\"type\":\"integer\"},\"image\":{\"description\":\"Logo of the sponsor.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the sponsor.\",\"type\":\"string\"},\"url\":{\"description\":\"URL to sponsor website.\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"id\",\"name\"],\"type\":\"object\"},\"sponsors\":{\"description\":\"An array of sponsors of this station\",\"items\":{\"description\":\"Represents a sponsor item containing an image and link (translated).\",\"properties\":{\"id\":{\"description\":\"Technical sponsor id.\",\"format\":\"int32\",\"type\":\"integer\"},\"image\":{\"description\":\"Logo of the sponsor.\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the sponsor.\",\"type\":\"string\"},\"url\":{\"description\":\"URL to sponsor website.\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"state\":{\"description\":\"Representation of a state.\",\"properties\":{\"id\":{\"description\":\"Technical state id\",\"format\":\"int32\",\"type\":\"integer\"},\"name\":{\"description\":\"Translated human-readable state name\",\"type\":\"string\"}},\"required\":[\"id\",\"name\"],\"type\":\"object\"},\"vehicles\":{\"description\":\"All vehicles that are currently available at this station\",\"items\":{\"description\":\"Representation of a vehicle\",\"properties\":{\"ebike_battery_level\":{\"description\":\"E-Bike battery level in percent. The e-bike battery level is between 0 and 100. If the value is missing it is either not an e-bike or the battery level is unknown.\",\"format\":\"double\",\"maximum\":100,\"minimum\":0,\"type\":\"number\"},\"id\":{\"description\":\"Technical vehicle id\",\"format\":\"int32\",\"type\":\"integer\"},\"name\":{\"description\":\"Vehicle number visible to the user\",\"type\":\"string\"},\"type\":{\"description\":\"Representation of a type.\",\"properties\":{\"id\":{\"description\":\"Technical type id\",\"format\":\"int32\",\"type\":\"integer\"},\"name\":{\"description\":\"Translated human-readable type name\",\"type\":\"string\"}},\"required\":[\"id\",\"name\"],\"type\":\"object\"}},\"required\":[\"id\",\"name\",\"type\"],\"type\":\"object\"},\"type\":\"array\"},\"zip\":{\"description\":\"Zip code of the station\",\"type\":\"string\"}},\"required\":[\"id\",\"latitude\",\"longitude\",\"state\",\"name\"],\"type\":\"object\"}}},\"description\":\"Station details\"},\"404\":{\"description\":\"Station not found\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/stations/{id}",
@@ -234,13 +316,223 @@
         }
       },
       "feature": {
+        "ratelimit": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "burst": 5,
+              "rate": 5
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "ratelimit",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Client-side rate limiting via a token bucket",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
+        "retry": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "factor": 2,
+              "maxDelay": 2000,
+              "minDelay": 50,
+              "retries": 2,
+              "statuses": [
+                408,
+                425,
+                429,
+                500,
+                502,
+                503,
+                504
+              ]
+            },
+            "optspec": {
+              "jitter": "`$BOOLEAN`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "retry",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Automatic retry of transient failures with exponential backoff",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
         "test": {
           "active": true,
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "config": {
             "options": {
               "active": false
-            }
+            },
+            "optspec": {
+              "entity": "`$MAP`",
+              "net": "`$MAP`"
+            },
+            "strict": false
           },
           "hook": {
             "GetData": {
@@ -331,6 +623,102 @@
           "title": "In-memory mock transport for testing without a live server",
           "transport": "base",
           "version": "0.0.1"
+        },
+        "timeout": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "ms": 30000
+            },
+            "optspec": {
+              "clearTimer": "`$FUNCTION`",
+              "setTimer": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "timeout",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Per-request timeout with transport abort",
+          "transport": "wrap",
+          "version": "0.0.1"
         }
       },
       "flow": {
@@ -408,6 +796,48 @@
         "website": "https://publibike.ch"
       },
       "option": {},
+      "optspec": {
+        "allow": {
+          "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
+          "op": "create,update,load,list,remove,command,direct,graphql"
+        },
+        "apikey": "",
+        "auth": {
+          "basic": false,
+          "prefix": ""
+        },
+        "base": "http://localhost:8000",
+        "clean": {
+          "keys": "key,token,id"
+        },
+        "entity": {
+          "`$CHILD`": {
+            "`$OPEN`": true,
+            "active": false,
+            "alias": {}
+          }
+        },
+        "extend": "`$ANY`",
+        "headers": {
+          "`$CHILD`": "`$STRING`"
+        },
+        "prefix": "",
+        "secret": "",
+        "server": {
+          "`$CHILD`": ""
+        },
+        "suffix": "",
+        "system": {
+          "fetch": "`$ANY`"
+        },
+        "test": {
+          "active": false,
+          "entity": {
+            "`$OPEN`": true
+          }
+        },
+        "utility": {}
+      },
       "repo": {
         "host": "github.com",
         "path": ""
@@ -962,6 +1392,7 @@
           },
           "package": "@voxgig/sdkgen",
           "provides": {
+            "schema": true,
             "sekreto": true
           },
           "publish": {
@@ -1003,7 +1434,7 @@
         "live": {
           "app": false,
           "base": "",
-          "strict": false
+          "strict": true
         }
       }
     }

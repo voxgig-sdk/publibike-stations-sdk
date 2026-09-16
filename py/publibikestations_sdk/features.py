@@ -1,12 +1,18 @@
 # PublibikeStations SDK feature factory
 
 from publibikestations_sdk.feature.base_feature import PublibikeStationsBaseFeature
+from publibikestations_sdk.feature.ratelimit_feature import PublibikeStationsRatelimitFeature
+from publibikestations_sdk.feature.retry_feature import PublibikeStationsRetryFeature
 from publibikestations_sdk.feature.test_feature import PublibikeStationsTestFeature
+from publibikestations_sdk.feature.timeout_feature import PublibikeStationsTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: PublibikeStationsBaseFeature(),
+    "ratelimit": lambda: PublibikeStationsRatelimitFeature(),
+    "retry": lambda: PublibikeStationsRetryFeature(),
     "test": lambda: PublibikeStationsTestFeature(),
+    "timeout": lambda: PublibikeStationsTimeoutFeature(),
 }
 
 
