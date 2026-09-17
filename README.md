@@ -105,12 +105,12 @@ local results, err = client:Station():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/publibike-stations-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/releases) |
-| Python | `voxgig-sdk-publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/releases) |
-| PHP | `voxgig-sdk/publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/releases) |
+| TypeScript | `@voxgig-sdk/publibike-stations-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/tags) |
+| Python | `voxgig-sdk-publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/tags) |
+| PHP | `voxgig-sdk/publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/publibike-stations-sdk/go` | `go get github.com/voxgig-sdk/publibike-stations-sdk/go@latest` |
-| Ruby | `voxgig-sdk-publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/releases) |
-| Lua | `voxgig-sdk-publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/releases) |
+| Ruby | `voxgig-sdk-publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/tags) |
+| Lua | `voxgig-sdk-publibike-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/publibike-stations-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/publibike-stations-sdk/go-cli` | `go install github.com/voxgig-sdk/publibike-stations-sdk/go-cli/cmd/publibike-stations@latest` |
 | Go MCP server | `github.com/voxgig-sdk/publibike-stations-sdk/go-mcp` | `go get github.com/voxgig-sdk/publibike-stations-sdk/go-mcp@latest` |
 
