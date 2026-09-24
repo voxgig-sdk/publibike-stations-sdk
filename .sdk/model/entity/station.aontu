@@ -1,0 +1,211 @@
+# Entity: station
+
+main: kit: entity: station: {
+
+  alias: field: {}
+
+  fields: {
+    address: {
+      h: "Address"
+      n: "address"
+      r: false
+      sh: "Station address without the city"
+      t: "`$STRING`"
+    }
+    capacity: {
+      fo: "int32"
+      h: "Capacity"
+      n: "capacity"
+      r: false
+      sh: "The maximum number of bikes a station is able to accommodate."
+      t: "`$INTEGER`"
+    }
+    city: {
+      h: "City"
+      n: "city"
+      r: false
+      sh: "City of the station"
+      t: "`$STRING`"
+    }
+    id: {
+      fo: "int32"
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Technical station id"
+      t: "`$INTEGER`"
+    }
+    is_virtual_station: {
+      h: "Is Virtual Station"
+      n: "is_virtual_station"
+      r: false
+      sh: "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…"
+      t: "`$BOOLEAN`"
+    }
+    latitude: {
+      fo: "double"
+      h: "Latitude"
+      n: "latitude"
+      r: true
+      sh: "Latitude of the station"
+      t: "`$NUMBER`"
+    }
+    longitude: {
+      fo: "double"
+      h: "Longitude"
+      n: "longitude"
+      r: true
+      sh: "Longitude of the station"
+      t: "`$NUMBER`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: true
+      sh: "Public name of the station"
+      t: "`$STRING`"
+    }
+    network: {
+      h: "Network"
+      n: "network"
+      r: true
+      sh: "Representation of a network"
+      t: "`$OBJECT`"
+    }
+    sponsors: {
+      h: "Sponsors"
+      n: "sponsors"
+      r: false
+      sh: "An array of sponsors of this station"
+      t: "`$ARRAY`"
+    }
+    state: {
+      h: "State"
+      n: "state"
+      r: true
+      sh: "Representation of a state."
+      t: "`$OBJECT`"
+    }
+    vehicles: {
+      h: "Vehicles"
+      n: "vehicles"
+      r: false
+      sh: "All vehicles that are currently available at this station"
+      t: "`$ARRAY`"
+    }
+    zip: {
+      h: "Zip"
+      n: "zip"
+      r: false
+      sh: "Zip code of the station"
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "station"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /public/partner/stations"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/public/partner/stations"
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "partner"
+            }
+            {
+              lit: "stations"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.stations`"
+          }
+        }
+        {
+          co: {
+            id: "GET /public/stations"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/public/stations"
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "stations"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /public/stations/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/public/stations/{id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "stations"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

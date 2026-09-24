@@ -1,7 +1,7 @@
 // Typed models for the PublibikeStations SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,19 +14,6 @@ import (
 
 // Station is the typed data model for the station entity.
 type Station struct {
-	Address *string `json:"address,omitempty"`
-	Capacity *int `json:"capacity,omitempty"`
-	City *string `json:"city,omitempty"`
-	Id int `json:"id"`
-	IsVirtualStation *bool `json:"is_virtual_station,omitempty"`
-	Latitude float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-	Name string `json:"name"`
-	Network map[string]any `json:"network"`
-	Sponsors *[]any `json:"sponsors,omitempty"`
-	State map[string]any `json:"state"`
-	Vehicles *[]any `json:"vehicles,omitempty"`
-	Zip *string `json:"zip,omitempty"`
 }
 
 // StationLoadMatch is the typed request payload for Station.LoadTyped.

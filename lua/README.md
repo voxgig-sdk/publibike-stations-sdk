@@ -43,7 +43,7 @@ local stations, err = client:Station():list()
 if err then error(err) end
 
 for _, item in ipairs(stations) do
-  print(item["id"], item["address"])
+  print(item["id"])
 end
 ```
 

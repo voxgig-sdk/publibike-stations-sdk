@@ -116,78 +116,91 @@ def make_config():
         "fields": [
           {
             "name": "address",
-            "short": "Station address without the city",
+            "title": "Address",
             "type": "`$STRING`",
+            "short": "Station address without the city",
           },
           {
-            "format": "int32",
             "name": "capacity",
-            "short": "The maximum number of bikes a station is able to accommodate.",
+            "title": "Capacity",
             "type": "`$INTEGER`",
+            "short": "The maximum number of bikes a station is able to accommodate.",
+            "format": "int32",
           },
           {
             "name": "city",
-            "short": "City of the station",
+            "title": "City",
             "type": "`$STRING`",
+            "short": "City of the station",
           },
           {
-            "format": "int32",
             "name": "id",
+            "title": "Id",
+            "type": "`$INTEGER`",
             "req": True,
             "short": "Technical station id",
-            "type": "`$INTEGER`",
+            "format": "int32",
           },
           {
             "name": "is_virtual_station",
-            "short": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…",
+            "title": "Is Virtual Station",
             "type": "`$BOOLEAN`",
+            "short": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…",
           },
           {
-            "format": "double",
             "name": "latitude",
+            "title": "Latitude",
+            "type": "`$NUMBER`",
             "req": True,
             "short": "Latitude of the station",
-            "type": "`$NUMBER`",
+            "format": "double",
           },
           {
-            "format": "double",
             "name": "longitude",
+            "title": "Longitude",
+            "type": "`$NUMBER`",
             "req": True,
             "short": "Longitude of the station",
-            "type": "`$NUMBER`",
+            "format": "double",
           },
           {
             "name": "name",
+            "title": "Name",
+            "type": "`$STRING`",
             "req": True,
             "short": "Public name of the station",
-            "type": "`$STRING`",
           },
           {
             "name": "network",
+            "title": "Network",
+            "type": "`$OBJECT`",
             "req": True,
             "short": "Representation of a network",
-            "type": "`$OBJECT`",
           },
           {
             "name": "sponsors",
-            "short": "An array of sponsors of this station",
+            "title": "Sponsors",
             "type": "`$ARRAY`",
+            "short": "An array of sponsors of this station",
           },
           {
             "name": "state",
+            "title": "State",
+            "type": "`$OBJECT`",
             "req": True,
             "short": "Representation of a state.",
-            "type": "`$OBJECT`",
           },
           {
             "name": "vehicles",
-            "short": "All vehicles that are currently available at this station",
+            "title": "Vehicles",
             "type": "`$ARRAY`",
+            "short": "All vehicles that are currently available at this station",
           },
           {
             "name": "zip",
-            "short": "Zip code of the station",
+            "title": "Zip",
             "type": "`$STRING`",
+            "short": "Zip code of the station",
           },
         ],
         "id": {
@@ -201,7 +214,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/partner/stations",
@@ -216,19 +228,20 @@ def make_config():
                     "lit": "stations",
                   },
                 ],
-                "select": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.stations`",
-                },
                 "parts": [
                   "public",
                   "partner",
                   "stations",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.stations`",
+                },
+                "args": {},
+                "select": {},
               },
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/stations",
@@ -240,15 +253,17 @@ def make_config():
                     "lit": "stations",
                   },
                 ],
-                "select": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "public",
                   "stations",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -257,17 +272,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/stations/{id}",
@@ -282,20 +286,32 @@ def make_config():
                     "var": "id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "public",
                   "stations",
                   "{id}",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "id",
+                  ],
+                },
               },
             ],
           },

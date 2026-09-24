@@ -91,78 +91,91 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "address",
-						"short": "Station address without the city",
+						"title": "Address",
 						"type": "`$STRING`",
+						"short": "Station address without the city",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "capacity",
-						"short": "The maximum number of bikes a station is able to accommodate.",
+						"title": "Capacity",
 						"type": "`$INTEGER`",
+						"short": "The maximum number of bikes a station is able to accommodate.",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "city",
-						"short": "City of the station",
+						"title": "City",
 						"type": "`$STRING`",
+						"short": "City of the station",
 					},
 					map[string]any{
-						"format": "int32",
 						"name": "id",
+						"title": "Id",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Technical station id",
-						"type": "`$INTEGER`",
+						"format": "int32",
 					},
 					map[string]any{
 						"name": "is_virtual_station",
-						"short": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…",
+						"title": "Is Virtual Station",
 						"type": "`$BOOLEAN`",
+						"short": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…",
 					},
 					map[string]any{
-						"format": "double",
 						"name": "latitude",
+						"title": "Latitude",
+						"type": "`$NUMBER`",
 						"req": true,
 						"short": "Latitude of the station",
-						"type": "`$NUMBER`",
+						"format": "double",
 					},
 					map[string]any{
-						"format": "double",
 						"name": "longitude",
+						"title": "Longitude",
+						"type": "`$NUMBER`",
 						"req": true,
 						"short": "Longitude of the station",
-						"type": "`$NUMBER`",
+						"format": "double",
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Public name of the station",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "network",
+						"title": "Network",
+						"type": "`$OBJECT`",
 						"req": true,
 						"short": "Representation of a network",
-						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "sponsors",
-						"short": "An array of sponsors of this station",
+						"title": "Sponsors",
 						"type": "`$ARRAY`",
+						"short": "An array of sponsors of this station",
 					},
 					map[string]any{
 						"name": "state",
+						"title": "State",
+						"type": "`$OBJECT`",
 						"req": true,
 						"short": "Representation of a state.",
-						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "vehicles",
-						"short": "All vehicles that are currently available at this station",
+						"title": "Vehicles",
 						"type": "`$ARRAY`",
+						"short": "All vehicles that are currently available at this station",
 					},
 					map[string]any{
 						"name": "zip",
-						"short": "Zip code of the station",
+						"title": "Zip",
 						"type": "`$STRING`",
+						"short": "Zip code of the station",
 					},
 				},
 				"id": map[string]any{
@@ -176,7 +189,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/partner/stations",
@@ -191,19 +203,20 @@ func MakeConfig() map[string]any {
 										"lit": "stations",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.stations`",
-								},
 								"parts": []any{
 									"public",
 									"partner",
 									"stations",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.stations`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/stations",
@@ -215,15 +228,17 @@ func MakeConfig() map[string]any {
 										"lit": "stations",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"public",
 									"stations",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -232,17 +247,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/stations/{id}",
@@ -257,19 +261,31 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"public",
 									"stations",
 									"{id}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},

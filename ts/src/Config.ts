@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -139,78 +132,91 @@ class Config {
       "fields": [
         {
           "name": "address",
-          "short": "Station address without the city",
-          "type": "`$STRING`"
+          "title": "Address",
+          "type": "`$STRING`",
+          "short": "Station address without the city"
         },
         {
-          "format": "int32",
           "name": "capacity",
+          "title": "Capacity",
+          "type": "`$INTEGER`",
           "short": "The maximum number of bikes a station is able to accommodate.",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
           "name": "city",
-          "short": "City of the station",
-          "type": "`$STRING`"
+          "title": "City",
+          "type": "`$STRING`",
+          "short": "City of the station"
         },
         {
-          "format": "int32",
           "name": "id",
+          "title": "Id",
+          "type": "`$INTEGER`",
           "req": true,
           "short": "Technical station id",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
           "name": "is_virtual_station",
-          "short": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…",
-          "type": "`$BOOLEAN`"
+          "title": "Is Virtual Station",
+          "type": "`$BOOLEAN`",
+          "short": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…"
         },
         {
-          "format": "double",
           "name": "latitude",
+          "title": "Latitude",
+          "type": "`$NUMBER`",
           "req": true,
           "short": "Latitude of the station",
-          "type": "`$NUMBER`"
+          "format": "double"
         },
         {
-          "format": "double",
           "name": "longitude",
+          "title": "Longitude",
+          "type": "`$NUMBER`",
           "req": true,
           "short": "Longitude of the station",
-          "type": "`$NUMBER`"
+          "format": "double"
         },
         {
           "name": "name",
+          "title": "Name",
+          "type": "`$STRING`",
           "req": true,
-          "short": "Public name of the station",
-          "type": "`$STRING`"
+          "short": "Public name of the station"
         },
         {
           "name": "network",
+          "title": "Network",
+          "type": "`$OBJECT`",
           "req": true,
-          "short": "Representation of a network",
-          "type": "`$OBJECT`"
+          "short": "Representation of a network"
         },
         {
           "name": "sponsors",
-          "short": "An array of sponsors of this station",
-          "type": "`$ARRAY`"
+          "title": "Sponsors",
+          "type": "`$ARRAY`",
+          "short": "An array of sponsors of this station"
         },
         {
           "name": "state",
+          "title": "State",
+          "type": "`$OBJECT`",
           "req": true,
-          "short": "Representation of a state.",
-          "type": "`$OBJECT`"
+          "short": "Representation of a state."
         },
         {
           "name": "vehicles",
-          "short": "All vehicles that are currently available at this station",
-          "type": "`$ARRAY`"
+          "title": "Vehicles",
+          "type": "`$ARRAY`",
+          "short": "All vehicles that are currently available at this station"
         },
         {
           "name": "zip",
-          "short": "Zip code of the station",
-          "type": "`$STRING`"
+          "title": "Zip",
+          "type": "`$STRING`",
+          "short": "Zip code of the station"
         }
       ],
       "id": {
@@ -224,7 +230,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/public/partner/stations",
@@ -239,19 +244,20 @@ class Config {
                   "lit": "stations"
                 }
               ],
-              "select": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.stations`"
-              },
               "parts": [
                 "public",
                 "partner",
                 "stations"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.stations`"
+              },
+              "args": {},
+              "select": {}
             },
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/public/stations",
@@ -263,15 +269,17 @@ class Config {
                   "lit": "stations"
                 }
               ],
-              "select": {},
+              "parts": [
+                "public",
+                "stations"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "public",
-                "stations"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -280,17 +288,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/public/stations/{id}",
@@ -305,20 +302,32 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "stations",
                 "{id}"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         }
