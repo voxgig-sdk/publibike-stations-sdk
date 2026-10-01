@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 PublibikeStationsUtility.registrar = ->(u) {
   u.clean = PublibikeStationsUtilities::Clean
+  u.clean_add = PublibikeStationsUtilities::CleanAdd
+  u.clean_explain = PublibikeStationsUtilities::CleanExplain
   u.done = PublibikeStationsUtilities::Done
   u.make_error = PublibikeStationsUtilities::MakeError
   u.feature_add = PublibikeStationsUtilities::FeatureAdd

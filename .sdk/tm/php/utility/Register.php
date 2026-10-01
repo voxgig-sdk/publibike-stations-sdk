@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 PublibikeStationsUtility::setRegistrar(function (PublibikeStationsUtility $u): void {
     $u->clean = [PublibikeStationsClean::class, 'call'];
+    $u->clean_add = [PublibikeStationsClean::class, 'add'];
+    $u->clean_explain = [PublibikeStationsDone::class, 'clean_explain'];
     $u->done = [PublibikeStationsDone::class, 'call'];
     $u->make_error = [PublibikeStationsMakeError::class, 'call'];
     $u->feature_add = [PublibikeStationsFeatureAdd::class, 'call'];

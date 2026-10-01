@@ -12,9 +12,14 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`):
+GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/publibike-stations-sdk/releases)), or
+from a clone as a Composer path repository:
 
-- Releases: [https://github.com/voxgig-sdk/publibike-stations-sdk/releases](https://github.com/voxgig-sdk/publibike-stations-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/publibike-stations-sdk
+composer config repositories.publibike-stations-sdk path ./publibike-stations-sdk/php
+composer require voxgig-sdk/publibike-stations-sdk:@dev
+```
 
 
 ## Tutorial: your first API call
