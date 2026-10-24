@@ -91,7 +91,7 @@ station = client.Station()
 | `capacity` | `int` | No | The maximum number of bikes a station is able to accommodate. |
 | `city` | `str` | No | City of the station |
 | `id` | `int` | Yes | Technical station id |
-| `is_virtual_station` | `bool` | No | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `is_virtual_station` | `bool` | No | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical… |
 | `latitude` | `float` | Yes | Latitude of the station |
 | `longitude` | `float` | Yes | Longitude of the station |
 | `name` | `str` | Yes | Public name of the station |
@@ -103,19 +103,19 @@ station = client.Station()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[StationEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.Station().list()
 for station in results:
-    print(station)
+    print(station.data_get())
 ```
 
-#### `load(reqmatch, ctrl=None) -> dict`
+#### `load(reqmatch, ctrl=None) -> StationEntity`
 
-Load a single entity matching the given criteria. Returns the entity data and raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
 
 ```python
 result = client.Station().load({"id": 1})
@@ -307,6 +307,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

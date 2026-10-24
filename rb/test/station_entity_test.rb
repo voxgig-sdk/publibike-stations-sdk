@@ -6,10 +6,34 @@ require_relative "../PublibikeStations_sdk"
 require_relative "runner"
 
 class StationEntityTest < Minitest::Test
+  # main.kit.test.live.strict is true (the default is true): a live
+  # request that fails, or a live test missing an input it needs,
+  # fails the test.
+  # An account with no record for a test to read skips it either way.
+  LIVE_STRICT = true
+
   def test_create_instance
     testsdk = PublibikeStationsSDK.test(nil, nil)
     ent = testsdk.Station(nil)
     assert !ent.nil?
+  end
+
+  def test_list_entities
+    seed = {
+      "entity" => {
+        "station" => {
+          "l1" => { "id" => "l1" },
+          "l2" => { "id" => "l2" },
+        },
+      },
+    }
+    items = PublibikeStationsSDK.test(seed, nil).Station(nil).list(nil, nil)
+    # list resolves to one entity per record; data_get reads the record.
+    assert_equal 2, items.length
+    items.each do |item|
+      assert item.respond_to?(:data_get)
+      assert item.data_get.is_a?(Hash)
+    end
   end
 
   # Feature #4: the entity stream(action, ...) method runs the op pipeline and
@@ -48,6 +72,80 @@ class StationEntityTest < Minitest::Test
     end
   end
 
+  class FailHook < PublibikeStationsBaseFeature
+    attr_reader :unexpected
+
+    def initialize
+      super()
+      @name = "failhook"
+      @unexpected = 0
+    end
+
+    def PreSpec(ctx)
+      raise "station hook failed"
+    end
+
+    def PreUnexpected(ctx)
+      @unexpected += 1
+    end
+  end
+
+  def test_stream_error
+    offline = { "net" => { "offline" => true } }
+    err = assert_raises(StandardError) do
+      PublibikeStationsSDK.test(offline, nil).Station(nil).stream("list", nil, nil).to_a
+    end
+    assert_match(/offline/, err.message)
+
+    PublibikeStationsSDK.test(offline, nil).Station(nil)
+      .stream("list", nil, { "ctrl" => { "throw" => false } }).to_a
+
+    cfg = PublibikeStationsConfig.shared_config
+    if cfg["feature"].is_a?(Hash) && cfg["feature"].key?("rbac")
+      denied = PublibikeStationsSDK.test(nil, { "feature" => { "rbac" => { "active" => true, "deny" => true } } })
+      err = assert_raises(StandardError) do
+        denied.Station(nil).stream("list", nil, nil).to_a
+      end
+      assert_equal "rbac_denied", err.code
+    end
+  end
+
+  def test_stream_ctrl
+    explain = {}
+    ctrl = { "explain" => explain }
+    PublibikeStationsSDK.test(nil, nil).Station(nil).stream("list", nil, { "ctrl" => ctrl }).to_a
+    assert_equal ["explain"], ctrl.keys
+    assert_same explain, ctrl["explain"]
+    refute_empty explain
+  end
+
+  def test_unexpected
+    hook = FailHook.new
+    client = PublibikeStationsSDK.new({ "feature" => { "test" => { "active" => true } }, "extend" => [hook] })
+
+    err = assert_raises(StandardError) do
+      client.Station(nil).list(nil, nil)
+    end
+    assert_match(/hook failed/, err.message)
+    assert_operator hook.unexpected, :>, 0
+
+    fired = hook.unexpected
+    assert_nil client.Station(nil).list(nil, { "throw" => false })
+    assert_operator hook.unexpected, :>, fired
+  end
+
+  def test_validate
+    cfg = PublibikeStationsConfig.shared_config
+    unless cfg["feature"].is_a?(Hash) && cfg["feature"].key?("validate")
+      skip("feature not present in this SDK: validate")
+    end
+    client = PublibikeStationsSDK.test(nil, { "feature" => { "validate" => { "active" => true } } })
+    err = assert_raises(StandardError) do
+      client.Station(nil).list({ "address" => 1 }, nil)
+    end
+    assert_equal "validate_failed", err.code
+  end
+
   def test_basic_flow
     setup = station_basic_setup(nil)
     # Per-op sdk-test-control.json skip.
@@ -59,13 +157,12 @@ class StationEntityTest < Minitest::Test
         return
       end
     end
-    # The basic flow consumes synthetic IDs from the fixture. In live mode
-    # without an *_ENTID env override, those IDs hit the live API and 4xx.
-    if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set PUBLIBIKE_STATIONS_TEST_STATION_ENTID JSON to run live"
-      return
-    end
     client = setup[:client]
+    if setup[:live]
+      Runner.live_existing(setup, LIVE_STRICT, "station") do
+        client.Station(nil).list({}, nil)
+      end
+    end
 
     # Bootstrap entity data from existing test data.
     station_ref01_data_raw = Vs.items(Helpers.to_map(
@@ -98,7 +195,7 @@ def station_basic_setup(extra)
   Runner.load_env_local
 
   entity_data_file = File.join(__dir__, "..", "..", ".sdk", "test", "entity", "station", "StationTestData.json")
-  entity_data_source = File.read(entity_data_file)
+  entity_data_source = File.read(entity_data_file, encoding: "UTF-8")
   entity_data = JSON.parse(entity_data_source)
 
   options = {}
@@ -117,9 +214,8 @@ def station_basic_setup(extra)
     }
   )
 
-  # Detect ENTID env override before envOverride consumes it. When live
-  # mode is on without a real override, the basic test runs against synthetic
-  # IDs from the fixture and 4xx's. Surface this so the test can skip.
+  # Whether *_ENTID supplied the idmap, read before env_override consumes
+  # it: without it, the ids a live flow binds are the fixture's synthetic ones.
   entid_env_raw = ENV["PUBLIBIKE_STATIONS_TEST_STATION_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 

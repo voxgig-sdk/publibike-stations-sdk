@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/publibike-stations-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/publibike-stations-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -236,8 +236,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
+| `load` | `($reqmatch, $ctrl): mixed` | Load a single entity by match criteria, and return it. |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -247,9 +247,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -273,7 +273,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 | `capacity` | The maximum number of bikes a station is able to accommodate. |
 | `city` | City of the station |
 | `id` | Technical station id |
-| `is_virtual_station` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `is_virtual_station` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical… |
 | `latitude` | Latitude of the station |
 | `longitude` | Longitude of the station |
 | `name` | Public name of the station |
@@ -311,7 +311,7 @@ Create an instance: `$station = $client->Station();`
 | `capacity` | `int` | The maximum number of bikes a station is able to accommodate. |
 | `city` | `string` | City of the station |
 | `id` | `int` | Technical station id |
-| `is_virtual_station` | `bool` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `is_virtual_station` | `bool` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical… |
 | `latitude` | `float` | Latitude of the station |
 | `longitude` | `float` | Longitude of the station |
 | `name` | `string` | Public name of the station |
@@ -331,7 +331,7 @@ $station = $client->Station()->load(["id" => 1]);
 #### Example: List
 
 ```php
-// list() returns an array of Station records (throws on error).
+// list() returns an array of Station entities, one per record (throws on error).
 $stations = $client->Station()->list();
 ```
 

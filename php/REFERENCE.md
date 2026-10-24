@@ -96,7 +96,7 @@ $station = $client->Station();
 | `capacity` | `int` | No | The maximum number of bikes a station is able to accommodate. |
 | `city` | `string` | No | City of the station |
 | `id` | `int` | Yes | Technical station id |
-| `is_virtual_station` | `bool` | No | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `is_virtual_station` | `bool` | No | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical… |
 | `latitude` | `float` | Yes | Latitude of the station |
 | `longitude` | `float` | Yes | Longitude of the station |
 | `name` | `string` | Yes | Public name of the station |
@@ -110,7 +110,7 @@ $station = $client->Station();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->Station()->list();
@@ -118,7 +118,7 @@ $results = $client->Station()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Station()->load(["id" => 1]);
@@ -311,6 +311,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

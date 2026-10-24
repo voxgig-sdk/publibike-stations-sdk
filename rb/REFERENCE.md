@@ -97,7 +97,7 @@ station = client.Station
 | `capacity` | `Integer` | No | The maximum number of bikes a station is able to accommodate. |
 | `city` | `String` | No | City of the station |
 | `id` | `Integer` | Yes | Technical station id |
-| `is_virtual_station` | `Boolean` | No | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `is_virtual_station` | `Boolean` | No | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical… |
 | `latitude` | `Float` | Yes | Latitude of the station |
 | `longitude` | `Float` | Yes | Longitude of the station |
 | `name` | `String` | Yes | Public name of the station |
@@ -111,15 +111,16 @@ station = client.Station
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
 results = client.Station.list
+results.each { |item| puts item.data_get }
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria. Raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
 result = client.Station.load({ "id" => 1 })
@@ -312,6 +313,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

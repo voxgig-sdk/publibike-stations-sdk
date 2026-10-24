@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/publibike-stations-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/publibike-stations-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -38,14 +38,14 @@ client = PublibikeStationsSDK()
 
 ### 2. List station records
 
-`list()` returns a `list` of records (each a `dict`) and raises on
-error — iterate it directly.
+`list()` returns a `list` of entities, one per record, and raises on
+error; an entity's `data_get()` reads its record (a `dict`).
 
 ```python
 try:
     stations = client.Station().list()
     for station in stations:
-        print(station)
+        print(station.data_get())
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -57,7 +57,7 @@ except Exception as err:
 ```python
 try:
     station = client.Station().load({"id": 1})
-    print(station)
+    print(station.data_get())
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -70,7 +70,7 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 ```python
 try:
     stations = client.Station().list()
-    print(stations)
+    print([item.data_get() for item in stations])
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -136,10 +136,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = PublibikeStationsSDK.test()
 
-# Entity ops return the ENTITY and raises on error;
-# call data_get() for the record.
+# Entity ops return the entity, and list one per record; they raise on error.
 station = client.Station().list()
-# station contains the mock response record
+# data_get() on an entity reads its mock response record
 ```
 
 ### Use a custom fetch function
@@ -223,8 +222,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria, one per record. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -234,9 +233,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
-ops, a `list` for `list`) and raise on error. Wrap calls in
-`try`/`except` to handle failures.
+Entity operations return the entity, and `list` a `list` of entities, one
+per record; an entity's `data_get()` reads its record (a `dict`). They raise
+on error, so wrap calls in `try`/`except` to handle failures.
 
 The `direct()` escape hatch never raises — it returns a result `dict`
 you branch on via `result["ok"]`:
@@ -260,7 +259,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | `capacity` | The maximum number of bikes a station is able to accommodate. |
 | `city` | City of the station |
 | `id` | Technical station id |
-| `is_virtual_station` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `is_virtual_station` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical… |
 | `latitude` | Latitude of the station |
 | `longitude` | Longitude of the station |
 | `name` | Public name of the station |
@@ -298,7 +297,7 @@ Create an instance: `station = client.Station()`
 | `capacity` | `int` | The maximum number of bikes a station is able to accommodate. |
 | `city` | `str` | City of the station |
 | `id` | `int` | Technical station id |
-| `is_virtual_station` | `bool` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr… |
+| `is_virtual_station` | `bool` | Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical… |
 | `latitude` | `float` | Latitude of the station |
 | `longitude` | `float` | Longitude of the station |
 | `name` | `str` | Public name of the station |

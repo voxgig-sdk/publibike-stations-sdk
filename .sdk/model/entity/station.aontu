@@ -39,7 +39,7 @@ main: kit: entity: station: {
       h: "Is Virtual Station"
       n: "is_virtual_station"
       r: false
-      sh: "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…"
+      sh: "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical…"
       t: "`$BOOLEAN`"
     }
     latitude: {
@@ -120,6 +120,10 @@ main: kit: entity: station: {
           }
           m: "GET"
           o: "/public/partner/stations"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "public"
@@ -144,6 +148,10 @@ main: kit: entity: station: {
           }
           m: "GET"
           o: "/public/stations"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "public"
@@ -185,6 +193,10 @@ main: kit: entity: station: {
             exist: [
               "id"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

@@ -54,6 +54,53 @@ const utility_1 = require("../../utility");
         const ent = testsdk.Station();
         (0, node_assert_1.default)(null != ent);
     });
+    class FailHook extends __1.BaseFeature {
+        name = 'failhook';
+        version = '0.0.1';
+        active = true;
+        unexpected = 0;
+        init() { }
+        PreSpec() { throw new Error('station hook failed'); }
+        PreUnexpected() { this.unexpected++; }
+    }
+    (0, node_test_1.test)('stream-error', async () => {
+        const offline = { net: { offline: true } };
+        await node_assert_1.default.rejects(async () => {
+            for await (const _item of __1.PublibikeStationsSDK.test(offline).Station().stream('list')) { }
+        }, /offline/);
+        for await (const _item of __1.PublibikeStationsSDK.test(offline).Station()
+            .stream('list', undefined, { ctrl: { throw: false } })) { }
+        if (null != __1.config.feature?.rbac) {
+            const denied = __1.PublibikeStationsSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } });
+            await node_assert_1.default.rejects(async () => {
+                for await (const _item of denied.Station().stream('list')) { }
+            }, (err) => 'rbac_denied' === err.code);
+        }
+    });
+    (0, node_test_1.test)('stream-ctrl', async () => {
+        const explain = {};
+        const ctrl = { explain };
+        for await (const _item of __1.PublibikeStationsSDK.test().Station().stream('list', undefined, { ctrl })) { }
+        node_assert_1.default.deepStrictEqual(Object.keys(ctrl), ['explain']);
+        (0, node_assert_1.default)(explain === ctrl.explain && 0 < Object.keys(explain).length);
+    });
+    (0, node_test_1.test)('unexpected', async () => {
+        const hook = new FailHook();
+        const client = new __1.PublibikeStationsSDK({ feature: { test: { active: true } }, extend: [hook] });
+        await node_assert_1.default.rejects(client.Station().list(), /hook failed/);
+        (0, node_assert_1.default)(0 < hook.unexpected);
+        const fired = hook.unexpected;
+        node_assert_1.default.strictEqual(await client.Station().list(undefined, { throw: false }), undefined);
+        (0, node_assert_1.default)(fired < hook.unexpected);
+    });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.PublibikeStationsSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.Station().list({ "address": 1 }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.PUBLIBIKE_STATIONS_TEST_LIVE;
         for (const op of ['list', 'load']) {
@@ -62,7 +109,7 @@ const utility_1 = require("../../utility");
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "address": { "a": true, "h": "Address", "n": "address", "r": false, "sh": "Station address without the city", "t": "`$STRING`", "key$": "address", "index$": 0 }, "capacity": { "a": true, "fo": "int32", "h": "Capacity", "n": "capacity", "r": false, "sh": "The maximum number of bikes a station is able to accommodate.", "t": "`$INTEGER`", "key$": "capacity", "index$": 1 }, "city": { "a": true, "h": "City", "n": "city", "r": false, "sh": "City of the station", "t": "`$STRING`", "key$": "city", "index$": 2 }, "id": { "a": true, "fo": "int32", "h": "Id", "n": "id", "r": true, "sh": "Technical station id", "t": "`$INTEGER`", "key$": "id", "index$": 3 }, "is_virtual_station": { "a": true, "h": "Is Virtual Station", "n": "is_virtual_station", "r": false, "sh": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastr…", "t": "`$BOOLEAN`", "key$": "is_virtual_station", "index$": 4 }, "latitude": { "a": true, "fo": "double", "h": "Latitude", "n": "latitude", "r": true, "sh": "Latitude of the station", "t": "`$NUMBER`", "key$": "latitude", "index$": 5 }, "longitude": { "a": true, "fo": "double", "h": "Longitude", "n": "longitude", "r": true, "sh": "Longitude of the station", "t": "`$NUMBER`", "key$": "longitude", "index$": 6 }, "name": { "a": true, "h": "Name", "n": "name", "r": true, "sh": "Public name of the station", "t": "`$STRING`", "key$": "name", "index$": 7 }, "network": { "a": true, "h": "Network", "n": "network", "r": true, "sh": "Representation of a network", "t": "`$OBJECT`", "key$": "network", "index$": 8 }, "sponsors": { "a": true, "h": "Sponsors", "n": "sponsors", "r": false, "sh": "An array of sponsors of this station", "t": "`$ARRAY`", "key$": "sponsors", "index$": 9 }, "state": { "a": true, "h": "State", "n": "state", "r": true, "sh": "Representation of a state.", "t": "`$OBJECT`", "key$": "state", "index$": 10 }, "vehicles": { "a": true, "h": "Vehicles", "n": "vehicles", "r": false, "sh": "All vehicles that are currently available at this station", "t": "`$ARRAY`", "key$": "vehicles", "index$": 11 }, "zip": { "a": true, "h": "Zip", "n": "zip", "r": false, "sh": "Zip code of the station", "t": "`$STRING`", "key$": "zip", "index$": 12 } }, "id": { "field": "id", "name": "id" }, "name": "station", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /public/partner/stations", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "GET", "o": "/public/partner/stations", "q": {}, "r": {}, "s": [{ "lit": "public" }, { "lit": "partner" }, { "lit": "stations" }], "t": { "req": "`reqdata`", "res": "`body.stations`" }, "index$": 0 }, { "a": true, "co": { "id": "GET /public/stations", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "GET", "o": "/public/stations", "q": {}, "r": {}, "s": [{ "lit": "public" }, { "lit": "stations" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "list" }, "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /public/stations/{id}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "k": "param", "n": "id", "or": "id", "r": true, "t": "`$INTEGER`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/public/stations/{id}", "q": { "exist": ["id"] }, "r": {}, "s": [{ "lit": "public" }, { "lit": "stations" }, { "var": "id" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "station", "name__orig": "station", "Name": "Station", "name_": "station", "name-": "station", "NAME": "STATION", "index$": 0 }, { "active": true, "entity": "station", "key$": "BasicStationFlow", "kind": "basic", "name": "BasicStationFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "station_ref01" } }], "index$": 0 }, { "a": true, "d": {}, "i": { "ref": "station_ref01", "srcdatavar": "station_ref01_data", "suffix": "_dt0" }, "m": { "id": "station01" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-station_ref01" } }], "index$": 1 }] }, 'Station', { "GET /public/partner/stations": { "protocol": "http", "parameters": [] }, "GET /public/stations": { "protocol": "http", "parameters": [] }, "GET /public/stations/{id}": { "protocol": "http", "parameters": [{ "name": "id", "in": "path", "required": true, "description": "The station id", "schema": { "type": "integer", "format": "int32" }, "index$": 0 }] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "address": { "a": true, "h": "Address", "n": "address", "r": false, "sh": "Station address without the city", "t": "`$STRING`", "key$": "address", "index$": 0 }, "capacity": { "a": true, "fo": "int32", "h": "Capacity", "n": "capacity", "r": false, "sh": "The maximum number of bikes a station is able to accommodate.", "t": "`$INTEGER`", "key$": "capacity", "index$": 1 }, "city": { "a": true, "h": "City", "n": "city", "r": false, "sh": "City of the station", "t": "`$STRING`", "key$": "city", "index$": 2 }, "id": { "a": true, "fo": "int32", "h": "Id", "n": "id", "r": true, "sh": "Technical station id", "t": "`$INTEGER`", "key$": "id", "index$": 3 }, "is_virtual_station": { "a": true, "h": "Is Virtual Station", "n": "is_virtual_station", "r": false, "sh": "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical…", "t": "`$BOOLEAN`", "key$": "is_virtual_station", "index$": 4 }, "latitude": { "a": true, "fo": "double", "h": "Latitude", "n": "latitude", "r": true, "sh": "Latitude of the station", "t": "`$NUMBER`", "key$": "latitude", "index$": 5 }, "longitude": { "a": true, "fo": "double", "h": "Longitude", "n": "longitude", "r": true, "sh": "Longitude of the station", "t": "`$NUMBER`", "key$": "longitude", "index$": 6 }, "name": { "a": true, "h": "Name", "n": "name", "r": true, "sh": "Public name of the station", "t": "`$STRING`", "key$": "name", "index$": 7 }, "network": { "a": true, "h": "Network", "n": "network", "r": true, "sh": "Representation of a network", "t": "`$OBJECT`", "key$": "network", "index$": 8 }, "sponsors": { "a": true, "h": "Sponsors", "n": "sponsors", "r": false, "sh": "An array of sponsors of this station", "t": "`$ARRAY`", "key$": "sponsors", "index$": 9 }, "state": { "a": true, "h": "State", "n": "state", "r": true, "sh": "Representation of a state.", "t": "`$OBJECT`", "key$": "state", "index$": 10 }, "vehicles": { "a": true, "h": "Vehicles", "n": "vehicles", "r": false, "sh": "All vehicles that are currently available at this station", "t": "`$ARRAY`", "key$": "vehicles", "index$": 11 }, "zip": { "a": true, "h": "Zip", "n": "zip", "r": false, "sh": "Zip code of the station", "t": "`$STRING`", "key$": "zip", "index$": 12 } }, "id": { "field": "id", "name": "id" }, "name": "station", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /public/partner/stations", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "GET", "o": "/public/partner/stations", "q": {}, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "public" }, { "lit": "partner" }, { "lit": "stations" }], "t": { "req": "`reqdata`", "res": "`body.stations`" }, "index$": 0 }, { "a": true, "co": { "id": "GET /public/stations", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "GET", "o": "/public/stations", "q": {}, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "public" }, { "lit": "stations" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 1 }], "key$": "list" }, "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /public/stations/{id}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "k": "param", "n": "id", "or": "id", "r": true, "t": "`$INTEGER`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/public/stations/{id}", "q": { "exist": ["id"] }, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "public" }, { "lit": "stations" }, { "var": "id" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "station", "name__orig": "station", "Name": "Station", "name_": "station", "name-": "station", "NAME": "STATION", "index$": 0 }, { "active": true, "entity": "station", "key$": "BasicStationFlow", "kind": "basic", "name": "BasicStationFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "station_ref01" } }], "index$": 0 }, { "a": true, "d": {}, "i": { "ref": "station_ref01", "srcdatavar": "station_ref01_data", "suffix": "_dt0" }, "m": { "id": "station01" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-station_ref01" } }], "index$": 1 }] }, 'Station', { "GET /public/partner/stations": { "protocol": "http", "parameters": [] }, "GET /public/stations": { "protocol": "http", "parameters": [] }, "GET /public/stations/{id}": { "protocol": "http", "parameters": [{ "name": "id", "in": "path", "required": true, "description": "The station id", "schema": { "type": "integer", "format": "int32" }, "index$": 0 }] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -80,6 +127,11 @@ const utility_1 = require("../../utility");
         (0, node_assert_1.default)(station_ref01_data_dt0.id === station_ref01_data.id);
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null

@@ -3,5 +3,19 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "An array of stations",
+      "City of the station",
+      "Information of all the stations",
+      "Marks the station as virtual according to the requirements of the General Bikeshare Feed Specification (GBFS) https://github.com/NABSA/gbfs/blob/v2.2/gbfs.md#station_informationjson , a virtual station does not consist of physical infrastructure (docks) but is defined for example via geolocation",
+      "Production server",
+      "Provides information about PubliBike stations, their states, positions, and available vehicles. Includes endpoints to get all stations, a specific station with vehicles, and all stations for partners.",
+      "Station address without the city",
+      "Station details",
+      "Technical station id",
+      "The maximum number of bikes a station is able to accommodate. This is not a hard limit but can be used for displaying purposes."
+    ]
+  }
 }
